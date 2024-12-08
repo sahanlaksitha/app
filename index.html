@@ -8,7 +8,36 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #0088cc;
+      color: white;
+      padding: 20px 10px;
+      font-size: 22px;
+    }
+    section {
+      margin: 20px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    a {
+      text-decoration: none;
+      color: #0088cc;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 90%;
+      max-width: 500px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
     button {
       padding: 10px 20px;
@@ -25,41 +54,73 @@
   </style>
 </head>
 <body>
-  <h1>Welcome</h1>
-  <p id="user-data">Loading user info...</p>
-  <button id="send-message">Send Message to Bot</button>
+  <header>
+    Telegram Web App
+  </header>
+  <section>
+    <h3>User Information</h3>
+    <p id="user-info">Loading...</p>
+  </section>
+
+  <section>
+    <h3>Our Channels</h3>
+    <ul id="channel-links">
+      <!-- Dynamic channel links will be populated here -->
+    </ul>
+  </section>
+
+  <section>
+    <h3>Send Feedback</h3>
+    <textarea id="feedback-message" placeholder="Write your feedback here..." rows="5"></textarea>
+    <br />
+    <button id="send-feedback">Send Feedback</button>
+  </section>
 
   <script>
     // Initialize Telegram Web App
     const tg = window.Telegram.WebApp;
 
-    // Display User Data
-    const userDataEl = document.getElementById('user-data');
+    // Expand the app to full screen
+    tg.expand();
+
+    // Display User Information
+    const userInfoEl = document.getElementById('user-info');
     const user = tg.initDataUnsafe?.user;
 
     if (user) {
-      userDataEl.textContent = `Hello, ${user.first_name} ${user.last_name || ''} (@${user.username || 'No username'})!`;
+      userInfoEl.innerHTML = `
+        <strong>Name:</strong> ${user.first_name} ${user.last_name || ''}<br>
+        <strong>Username:</strong> @${user.username || 'No username'}<br>
+        <strong>User ID:</strong> ${user.id}
+      `;
     } else {
-      userDataEl.textContent = 'Unable to retrieve user data.';
+      userInfoEl.textContent = 'Unable to load user information.';
     }
 
-    // Adjust Web App settings
-    tg.expand(); // Expand Web App to full height
-    tg.MainButton.text = "Close Web App";
-    tg.MainButton.show();
-
-    // Handle MainButton Click
-    tg.MainButton.onClick(() => {
-      tg.close(); // Close Web App
+    // Display Channel Links
+    const channelLinks = [
+      { name: "Channel 1", url: "https://t.me/channel1" },
+      { name: "Channel 2", url: "https://t.me/channel2" },
+      { name: "Channel 3", url: "https://t.me/channel3" },
+    ];
+    const channelLinksEl = document.getElementById('channel-links');
+    channelLinks.forEach((channel) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${channel.url}" target="_blank">${channel.name}</a>`;
+      channelLinksEl.appendChild(li);
     });
 
-    // Handle Custom Button
-    document.getElementById('send-message').addEventListener('click', () => {
-      // Example: Send a message back to the bot
-      const data = { action: 'button_clicked' };
+    // Handle Feedback Submission
+    document.getElementById('send-feedback').addEventListener('click', () => {
+      const feedbackMessage = document.getElementById('feedback-message').value.trim();
+      if (!feedbackMessage) {
+        alert('Please enter your feedback before sending.');
+        return;
+      }
 
-      tg.sendData(JSON.stringify(data)); // Sends data to bot
-      alert('Message sent to bot!');
+      // Send feedback message back to the bot
+      tg.sendData(JSON.stringify({ action: 'feedback', message: feedbackMessage }));
+      alert('Your feedback has been sent to the bot.');
     });
   </script>
 
