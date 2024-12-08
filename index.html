@@ -10,43 +10,130 @@
       text-align: center;
       margin: 20px;
     }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #0088cc;
+    }
+    p {
+      margin: 10px 0;
+    }
+    a {
+      color: #0088cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
     img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      margin-top: 10px;
+      margin: 10px 0;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #006699;
     }
   </style>
 </head>
 <body>
-  <h1>User Info</h1>
-  <p id="user-data">Loading...</p>
-  <img id="profile-picture" alt="Profile Picture" style="display: none;">
+  <div class="container">
+    <h1>Telegram Web App</h1>
+
+    <!-- User Information -->
+    <p id="user-info">Loading user data...</p>
+    <img id="profile-picture" alt="Profile Picture" style="display: none;">
+
+    <!-- Channel Links -->
+    <h3>Our Telegram Channels</h3>
+    <p>
+      <a href="https://t.me/example_channel1" target="_blank">Channel 1</a><br>
+      <a href="https://t.me/example_channel2" target="_blank">Channel 2</a>
+    </p>
+
+    <!-- Feedback Form -->
+    <h3>Send Us Your Feedback</h3>
+    <textarea id="feedback" placeholder="Write your feedback here..."></textarea>
+    <button id="send-feedback">Send Feedback</button>
+  </div>
+
+  <!-- Telegram Web App JS -->
   <script>
+    // Initialize Telegram Web App
     const tg = window.Telegram.WebApp;
+
+    // Display User Information
+    const userInfoEl = document.getElementById('user-info');
+    const profilePictureEl = document.getElementById('profile-picture');
     const user = tg.initDataUnsafe?.user;
 
     if (user) {
-      // Display user details
-      document.getElementById('user-data').textContent = 
-        `Hello, ${user.first_name} ${user.last_name || ''} (@${user.username || 'No username'})`;
+      userInfoEl.textContent = `Hello, ${user.first_name} ${user.last_name || ''} (@${user.username || 'No username'})`;
 
-      // Send the user's ID to the bot to fetch the profile picture
-      const userId = user.id;
-      tg.sendData(JSON.stringify({ action: 'get_profile_picture', user_id: userId }));
+      // Simulate receiving a profile picture URL (to be fetched from the bot)
+      const profilePictureUrl = "https://via.placeholder.com/100"; // Replace with actual URL from bot
+      profilePictureEl.src = profilePictureUrl;
+      profilePictureEl.style.display = "block";
     } else {
-      document.getElementById('user-data').textContent = 'Unable to retrieve user data.';
+      userInfoEl.textContent = 'Unable to retrieve user data.';
     }
 
-    // Function to update the profile picture (called when data is received from the bot)
-    window.addEventListener('message', (event) => {
-      const { profile_picture_url } = event.data;
-      if (profile_picture_url) {
-        const imgEl = document.getElementById('profile-picture');
-        imgEl.src = profile_picture_url;
-        imgEl.style.display = 'block';
+    // Adjust Web App settings
+    tg.expand(); // Expand the Web App
+    tg.MainButton.text = "Close Web App";
+    tg.MainButton.show();
+
+    // Handle MainButton Click
+    tg.MainButton.onClick(() => {
+      tg.close(); // Close Web App
+    });
+
+    // Feedback Submission
+    const feedbackBtn = document.getElementById('send-feedback');
+    feedbackBtn.addEventListener('click', () => {
+      const feedback = document.getElementById('feedback').value.trim();
+
+      if (!feedback) {
+        alert('Please write your feedback before sending.');
+        return;
       }
+
+      // Send feedback to the bot
+      const feedbackData = {
+        action: 'send_feedback',
+        feedback: feedback,
+      };
+
+      tg.sendData(JSON.stringify(feedbackData)); // Sends data back to bot
+      alert('Thank you for your feedback!');
+      document.getElementById('feedback').value = ''; // Clear the textarea
     });
   </script>
+
+  <script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
