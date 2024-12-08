@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram Web App</title>
+  <title>TipStream</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -55,7 +55,7 @@
 </head>
 <body>
   <header>
-    Telegram Web App
+    TipStream
   </header>
   <section>
     <h3>User Information</h3>
@@ -65,6 +65,7 @@
   <section>
     <h3>Our Channels</h3>
     <ul id="channel-links">
+
       <!-- Dynamic channel links will be populated here -->
     </ul>
   </section>
@@ -99,9 +100,9 @@
 
     // Display Channel Links
     const channelLinks = [
-      { name: "Channel 1", url: "https://t.me/channel1" },
-      { name: "Channel 2", url: "https://t.me/channel2" },
-      { name: "Channel 3", url: "https://t.me/channel3" },
+      { name: "Group", url: "https://t.me/tipstreamgroup" },
+      { name: "Channel", url: "https://t.me/tipstream" }
+   
     ];
     const channelLinksEl = document.getElementById('channel-links');
     channelLinks.forEach((channel) => {
