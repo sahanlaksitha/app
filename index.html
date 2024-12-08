@@ -3,128 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TipStream</title>
+  <title>Telegram Web App</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
-    header {
-      background-color: #0088cc;
-      color: white;
-      padding: 20px 10px;
-      font-size: 22px;
-    }
-    section {
       margin: 20px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     }
-    a {
-      text-decoration: none;
-      color: #0088cc;
-      font-weight: bold;
-    }
-    input, textarea {
-      width: 90%;
-      max-width: 500px;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #0088cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #006699;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <header>
-    TipStream
-  </header>
-  <section>
-    <h3>User Information</h3>
-    <p id="user-info">Loading...</p>
-  </section>
-
-  <section>
-    <h3>Our Channels</h3>
-    <ul id="channel-links">
-
-      <!-- Dynamic channel links will be populated here -->
-    </ul>
-  </section>
-
-  <section>
-    <h3>Send Feedback</h3>
-    <textarea id="feedback-message" placeholder="Write your feedback here..." rows="5"></textarea>
-    <br />
-    <button id="send-feedback">Send Feedback</button>
-  </section>
-
+  <h1>User Info</h1>
+  <p id="user-data">Loading...</p>
+  <img id="profile-picture" alt="Profile Picture" style="display: none;">
   <script>
-    // Initialize Telegram Web App
     const tg = window.Telegram.WebApp;
-
-    // Expand the app to full screen
-    tg.expand();
-
-    // Display User Information
-    const userInfoEl = document.getElementById('user-info');
     const user = tg.initDataUnsafe?.user;
 
     if (user) {
-      userInfoEl.innerHTML = `
-        <strong>Name:</strong> ${user.first_name} ${user.last_name || ''}<br>
-        <strong>Username:</strong> @${user.username || 'No username'}<br>
-        <strong>User ID:</strong> ${user.id}
-      `;
+      // Display user details
+      document.getElementById('user-data').textContent = 
+        `Hello, ${user.first_name} ${user.last_name || ''} (@${user.username || 'No username'})`;
+
+      // Send the user's ID to the bot to fetch the profile picture
+      const userId = user.id;
+      tg.sendData(JSON.stringify({ action: 'get_profile_picture', user_id: userId }));
     } else {
-      userInfoEl.textContent = 'Unable to load user information.';
+      document.getElementById('user-data').textContent = 'Unable to retrieve user data.';
     }
 
-    // Display Channel Links
-    const channelLinks = [
-      { name: "Group", url: "https://t.me/tipstreamgroup" },
-      { name: "Channel", url: "https://t.me/tipstream" }
-   
-    ];
-    const channelLinksEl = document.getElementById('channel-links');
-    channelLinks.forEach((channel) => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="${channel.url}" target="_blank">${channel.name}</a>`;
-      channelLinksEl.appendChild(li);
-    });
-
-    // Handle Feedback Submission
-    document.getElementById('send-feedback').addEventListener('click', () => {
-      const feedbackMessage = document.getElementById('feedback-message').value.trim();
-      if (!feedbackMessage) {
-        alert('Please enter your feedback before sending.');
-        return;
+    // Function to update the profile picture (called when data is received from the bot)
+    window.addEventListener('message', (event) => {
+      const { profile_picture_url } = event.data;
+      if (profile_picture_url) {
+        const imgEl = document.getElementById('profile-picture');
+        imgEl.src = profile_picture_url;
+        imgEl.style.display = 'block';
       }
-
-      // Send feedback message back to the bot
-      tg.sendData(JSON.stringify({ action: 'feedback', message: feedbackMessage }));
-      alert('Your feedback has been sent to the bot.');
     });
   </script>
-
-  <script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
