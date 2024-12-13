@@ -4,137 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Telegram Web App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       margin: 20px;
     }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      color: #0088cc;
-    }
-    p {
-      margin: 10px 0;
-    }
-    a {
-      color: #0088cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
     img {
-      width: 100px;
-      height: 100px;
       border-radius: 50%;
-      margin: 10px 0;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: none;
-      align: center;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #0088cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #006699;
+      width: 150px;
+      height: 150px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Telegram Web App</h1>
-
-    <!-- User Information -->
-    <p id="user-info">Loading user data...</p>
-    <img id="profile-picture" alt="Profile Picture" style="display: none;">
-
-    <!-- Channel Links -->
-    <h3>Our Telegram Channels</h3>
-    <p>
-      <a href="https://t.me/tipstream" target="_blank">Channel</a><br>
-      <a href="https://t.me/tipstreamgroup" target="_blank">Group</a>
-    </p>
-
-    <!-- Feedback Form -->
-    <h3>Send Us Your Feedback</h3>
-    <textarea id="feedback" placeholder="Write your feedback here..."></textarea>
-    <button id="send-feedback">Send Feedback</button>
+  <h1>Welcome to the Telegram Web App!</h1>
+  <div id="user-details">
+    <!-- User details will be populated here -->
   </div>
 
-  <!-- Telegram Web App JS -->
   <script>
     // Initialize Telegram Web App
     const tg = window.Telegram.WebApp;
 
-    // Display User Information
-    const userInfoEl = document.getElementById('user-info');
-    const profilePictureEl = document.getElementById('profile-picture');
-    const user = tg.initDataUnsafe?.user;
+    // Parse the user's initial data
+    const initData = tg.initDataUnsafe;
 
-    if (user) {
-      userInfoEl.textContent = `Hello, ${user.first_name} ${user.last_name || ''} (@${user.username || 'No username'})`;
+    // Display user details
+    const userDetailsDiv = document.getElementById("user-details");
 
-      // Simulate receiving a profile picture URL (to be fetched from the bot)
-      const profilePictureUrl = "https://via.placeholder.com/100"; // Replace with actual URL from bot
-      profilePictureEl.src = profilePictureUrl;
-      profilePictureEl.style.display = "block";
-    } else {
-      userInfoEl.textContent = 'Unable to retrieve user data.';
+    userDetailsDiv.innerHTML = `
+      <h2>Hello, ${initData.user.first_name} ${initData.user.last_name || ''}!</h2>
+      <p>Username: @${initData.user.username || 'N/A'}</p>
+      <p>User ID: ${initData.user.id}</p>
+    `;
+
+    // Optional: Fetch profile picture using Bot API
+    async function fetchProfilePicture() {
+      const response = await fetch(
+        `https://api.telegram.org/botYOUR_BOT_TOKEN/getUserProfilePhotos?user_id=${initData.user.id}`
+      );
+      const data = await response.json();
+
+      if (data.ok && data.result.total_count > 0) {
+        const fileId = data.result.photos[0][0].file_id;
+        const fileResponse = await fetch(
+          `https://api.telegram.org/botYOUR_BOT_TOKEN/getFile?file_id=${fileId}`
+        );
+        const fileData = await fileResponse.json();
+
+        if (fileData.ok) {
+          const filePath = fileData.result.file_path;
+          const profilePicUrl = `https://api.telegram.org/file/botYOUR_BOT_TOKEN/${filePath}`;
+          userDetailsDiv.innerHTML += `<img src="${profilePicUrl}" alt="Profile Picture">`;
+        }
+      } else {
+        userDetailsDiv.innerHTML += `<p>No profile picture available.</p>`;
+      }
     }
 
-    // Adjust Web App settings
-    tg.expand(); // Expand the Web App
-    tg.MainButton.text = "Close Web App";
-    tg.MainButton.show();
+    fetchProfilePicture();
 
-    // Handle MainButton Click
-    tg.MainButton.onClick(() => {
-      tg.close(); // Close Web App
-    });
-
-    // Feedback Submission
-    const feedbackBtn = document.getElementById('send-feedback');
-    feedbackBtn.addEventListener('click', () => {
-      const feedback = document.getElementById('feedback').value.trim();
-
-      if (!feedback) {
-        alert('Please write your feedback before sending.');
-        return;
-      }
-
-      // Send feedback to the bot
-      const feedbackData = {
-        action: 'send_feedback',
-        feedback: feedback,
-      };
-
-      tg.sendData(JSON.stringify(feedbackData)); // Sends data back to bot
-      alert('Thank you for your feedback!');
-      document.getElementById('feedback').value = ''; // Clear the textarea
-    });
+    // Show Telegram's built-in buttons (e.g., Close)
+    tg.expand();
   </script>
-
-  <script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
