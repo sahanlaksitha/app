@@ -111,6 +111,47 @@ text-align: left;
       <p>User ID: ${initData.user.id}</p>
     `;
 
+   // Replace with your bot token and user ID
+    const BOT_TOKEN = '8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU';
+    const USER_ID = '${initData.user.id}';
+
+    // Step 1: Fetch the user's profile photos
+    async function getUserProfilePhotos() {
+      const response = await fetch(https://api.telegram.org/bot${BOT_TOKEN}/getUserProfilePhotos?user_id=${USER_ID});
+      const data = await response.json();
+      if (data.ok && data.result.total_count > 0) {
+        const fileId = data.result.photos[0][0].file_id;
+        return fileId;
+      } else {
+        throw new Error('No profile photos found for this user.');
+      }
+    }
+
+    // Step 2: Get the file path of the profile photo
+    async function getFile(fileId) {
+      const response = await fetch(https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId});
+      const data = await response.json();
+      if (data.ok) {
+        return https://api.telegram.org/file/bot${BOT_TOKEN}/${data.result.file_path};
+      } else {
+        throw new Error('Unable to retrieve file path.');
+      }
+    }
+
+    // Step 3: Display the profile picture
+    async function displayProfilePicture() {
+      try {
+        const fileId = await getUserProfilePhotos();
+        const fileUrl = await getFile(fileId);
+        document.getElementById('profile-picture').src = fileUrl;
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    // Fetch and display the profile picture
+    displayProfilePicture();
+    
     // Feedback button logic
     const feedbackButton = document.getElementById("send-feedback");
     const feedbackInput = document.getElementById("feedback");
