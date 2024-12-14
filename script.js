@@ -1,64 +1,71 @@
 // Initialize Telegram Web App
 const tg = window.Telegram.WebApp;
 
-// Parse the user's initial data
-const initData = tg.initDataUnsafe;
-const user = initData.user;
+// User details
+const user = tg.initDataUnsafe?.user || {
+  first_name: "User",
+  username: "username",
+  id: "123456",
+  photo_url: null,
+};
 
-// Display user details
-const userDetailsDiv = document.getElementById("user-details");
-const profilePic = user.photo_url
-  ? `<img src="${user.photo_url}" alt="Profile Picture">`
-  : `<img src="https://via.placeholder.com/60" alt="Default Profile Picture">`;
+// Populate User Details
+document.getElementById("user-name").innerText = `Hello, ${user.first_name}!`;
+document.getElementById("user-username").innerText = `Username: @${user.username || "N/A"}`;
+document.getElementById("user-id").innerText = `User ID: ${user.id}`;
+if (user.photo_url) {
+  document.getElementById("profile-pic").src = user.photo_url;
+}
 
-userDetailsDiv.innerHTML = `
-  ${profilePic}
-  <div>
-    <h3>Hello, ${user.first_name} ${user.last_name || ''}!</h3>
-    <p>Username: @${user.username || 'N/A'}</p>
-    <p>User ID: ${user.id}</p>
-  </div>
-`;
+// Menu Navigation Logic
+const sections = document.querySelectorAll(".section");
+const navItems = document.querySelectorAll(".nav-item");
 
-// Section navigation
-const menuLinks = document.querySelectorAll('.bottom-menu a');
-const sections = document.querySelectorAll('.content-section');
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const target = item.getAttribute("data-target");
 
-menuLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    const target = link.getAttribute('href').substring(1);
-    sections.forEach(section => section.classList.remove('active'));
-    document.getElementById(target).classList.add('active');
+    // Switch Active Section
+    sections.forEach((section) => {
+      section.classList.remove("active");
+    });
+    document.getElementById(target).classList.add("active");
+
+    // Update Active Menu Item
+    navItems.forEach((nav) => nav.classList.remove("active"));
+    item.classList.add("active");
   });
 });
 
-// Activate the Home section by default
-document.getElementById('home').classList.add('active');
+// Feedback Logic
+const feedbackButton = document.getElementById("send-feedback");
+const feedbackInput = document.getElementById("feedback-input");
 
-// Feedback button logic
-document.getElementById("send-feedback").addEventListener("click", async () => {
-  const feedbackMessage = document.getElementById("feedback-text").value.trim();
+feedbackButton.addEventListener("click", async () => {
+  const feedback = feedbackInput.value.trim();
 
-  if (!feedbackMessage) {
-    alert("Please write some feedback before sending.");
+  if (!feedback) {
+    alert("Please write some feedback.");
     return;
   }
 
-  const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin chat ID
-
-  const response = await fetch(`https://api.telegram.org/bot8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: ADMIN_CHAT_ID,
-      text: `Feedback from ${user.first_name} (${user.username || 'N/A'} - ${user.id}):\n\n${feedbackMessage}`,
-    }),
-  });
+  // Send feedback via Telegram Bot API
+  const response = await fetch(
+    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: "<ADMIN_CHAT_ID>",
+        text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
+      }),
+    }
+  );
 
   if (response.ok) {
-    alert("Thank you for your feedback!");
-    document.getElementById("feedback-text").value = "";
+    alert("Feedback sent successfully!");
+    feedbackInput.value = "";
   } else {
-    alert("Error sending feedback.");
+    alert("Something went wrong, please try again.");
   }
 });
