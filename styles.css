@@ -10,14 +10,11 @@ body {
 
 
 
-h1 {
+header {
   background-color: #4CAF50;
   color: white;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+  padding: 15px 0;
+  font-size: 1.4rem;
   
 }
 
