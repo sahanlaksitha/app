@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  color: #333;
+  background: url("img/Hd.jpeg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+h1 {
+  color: #4CAF50;
+}
+
+img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 600px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+textarea {
+  width: 90%;
+  height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+  text-align: left;
+}
+
+a:hover {
+  text-decoration: bold;
+}
+
+.feedback-container {
+  text-align: left;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.user-text {
+  text-align: left;
+}
+
+.links {
+  text-align: left;
+}
+
+h2 {
+  text-align: left;
+}
