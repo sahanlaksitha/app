@@ -1,94 +1,90 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
   color: #333;
-  background: url("img/Hd.jpeg") no-repeat center center fixed;
-  background-size: cover;
 }
 
-h1 {
+h1, h2 {
   color: #4CAF50;
-  font-size: 40px;
+  margin-left: 15px;
 }
 
-img {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-}
-
-.container {
-  margin: 20px auto;
-  max-width: 600px;
-  background: White;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.content-section {
+  display: none; /* Hide all sections by default */
   padding: 20px;
 }
 
-textarea {
-  width: 90%;
-  height: 100px;
-  margin: 10px 0;
+.content-section.active {
+  display: block; /* Show the active section */
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-details img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.feedback-container textarea {
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
   padding: 10px;
-  font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  resize: none;
+  font-size: 14px;
 }
 
 button {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
+  padding: 8px 15px;
+  margin-top: 10px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
-a {
-  color: #4CAF50;
-  text-decoration: none;
-  text-align: left;
-}
-
-a:hover {
-  text-decoration: bold;
-}
-
-.feedback-container {
-  text-align: left;
-}
-
-.user-details {
+/* Bottom Menu */
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4CAF50;
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  padding: 10px 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.user-text {
-  text-align: left;
-}
-
-.links {
-  text-align: left;
+.bottom-menu a {
+  color: white;
   text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.links a {
-   /* Make links take the full line and align left */
-  margin-bottom: 5px; /* Optional: Adds spacing between links */
-  text-decoration: none;
+.bottom-menu a i {
+  font-size: 20px;
+  margin-bottom: 3px;
 }
 
-.links li {
-  list-style-type: disc;
+.bottom-menu a:hover {
+  color: #d4d4d4;
 }
-
