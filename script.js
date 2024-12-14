@@ -56,7 +56,7 @@ feedbackButton.addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        chat_id: "2319404430",
+        chat_id: "1258152672",
         text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
       }),
     }
