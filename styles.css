@@ -83,7 +83,7 @@ a:hover {
 }
 
 .links a {
-  display: block; /* Make links take the full line and align left */
+   /* Make links take the full line and align left */
   margin-bottom: 5px; /* Optional: Adds spacing between links */
   text-decoration: none;
 }
