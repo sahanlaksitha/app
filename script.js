@@ -5,39 +5,47 @@ const tg = window.Telegram.WebApp;
 const initData = tg.initDataUnsafe;
 const user = initData.user;
 
-// Display user details and profile picture
+// Display user details
 const userDetailsDiv = document.getElementById("user-details");
-
-// Check for profile photo (Telegram provides photo_url only in certain environments)
 const profilePic = user.photo_url
   ? `<img src="${user.photo_url}" alt="Profile Picture">`
-  : `<img src="https://via.placeholder.com/100" alt="Default Profile Picture">`;
+  : `<img src="https://via.placeholder.com/60" alt="Default Profile Picture">`;
 
 userDetailsDiv.innerHTML = `
   ${profilePic}
-  <div class="user-text">
-    <h2>Hello, ${user.first_name} ${user.last_name || ''}!</h2>
+  <div>
+    <h3>Hello, ${user.first_name} ${user.last_name || ''}!</h3>
     <p>Username: @${user.username || 'N/A'}</p>
     <p>User ID: ${user.id}</p>
   </div>
 `;
 
-// Feedback button logic
-const feedbackButton = document.getElementById("send-feedback");
-const feedbackInput = document.getElementById("feedback");
+// Section navigation
+const menuLinks = document.querySelectorAll('.bottom-menu a');
+const sections = document.querySelectorAll('.content-section');
 
-feedbackButton.addEventListener("click", async () => {
-  const feedbackMessage = feedbackInput.value.trim();
+menuLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const target = link.getAttribute('href').substring(1);
+    sections.forEach(section => section.classList.remove('active'));
+    document.getElementById(target).classList.add('active');
+  });
+});
+
+// Activate the Home section by default
+document.getElementById('home').classList.add('active');
+
+// Feedback button logic
+document.getElementById("send-feedback").addEventListener("click", async () => {
+  const feedbackMessage = document.getElementById("feedback-text").value.trim();
 
   if (!feedbackMessage) {
     alert("Please write some feedback before sending.");
     return;
   }
 
-  // Admin chat ID where feedback will be sent
-  const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
+  const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin chat ID
 
-  // Send the feedback message to your bot
   const response = await fetch(`https://api.telegram.org/bot8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -48,12 +56,9 @@ feedbackButton.addEventListener("click", async () => {
   });
 
   if (response.ok) {
-    alert("Thank you for your feedback! It has been sent to the admin.");
-    feedbackInput.value = ""; // Clear the input
+    alert("Thank you for your feedback!");
+    document.getElementById("feedback-text").value = "";
   } else {
-    alert("Something went wrong. Please try again later.");
+    alert("Error sending feedback.");
   }
 });
-
-// Show Telegram's built-in buttons (e.g., Close)
-tg.expand();
