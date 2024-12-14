@@ -34,7 +34,7 @@ h1, h2 {
 }
 
 .feedback-container textarea {
-  width: 100%;
+  width: 150px;
   height: 80px;
   margin-top: 10px;
   margin-right: 10px;
