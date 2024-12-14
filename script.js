@@ -51,12 +51,12 @@ feedbackButton.addEventListener("click", async () => {
 
   // Send feedback via Telegram Bot API
   const response = await fetch(
-    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
+    `https://api.telegram.org/bot8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU/sendMessage`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        chat_id: "<ADMIN_CHAT_ID>",
+        chat_id: "2319404430",
         text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
       }),
     }
