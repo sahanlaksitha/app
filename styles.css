@@ -78,10 +78,15 @@ a:hover {
 
 .links {
   text-align: left;
+  text-decoration: none;
 }
 
 .links a {
   display: block; /* Make links take the full line and align left */
   margin-bottom: 5px; /* Optional: Adds spacing between links */
+}
+
+.links li {
+  list-style-type: disc;
 }
 
