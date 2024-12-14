@@ -15,7 +15,9 @@ header {
   color: white;
   padding: 15px 0;
   font-size: 1.4rem;
-  
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 h2 {
