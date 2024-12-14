@@ -6,42 +6,69 @@
   <title>Telegram Web App</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome Icons -->
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Home Section -->
-  <div id="home" class="content-section">
-    <h1>Welcome!</h1>
-    <div id="user-details" class="user-details">
-      <!-- User details and profile picture will be populated here -->
+  <!-- Header Section -->
+  <header>
+    <h1>Welcome to Our Web App!</h1>
+  </header>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <!-- Home Section -->
+    <div id="home" class="section active">
+      <div class="user-details">
+        <img id="profile-pic" src="https://via.placeholder.com/80" alt="User Profile Picture">
+        <div class="user-info">
+          <h2 id="user-name">Hello, User!</h2>
+          <p id="user-username">Username: @username</p>
+          <p id="user-id">User ID: 123456</p>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Community Section -->
-  <div id="community" class="content-section">
-    <h2>Our Community</h2>
-    <p>
-     <li> <a href="https://t.me/tipstream" target="_blank" class="fas fa-paper-plane"> Channel</a> </li>
-     <li> <a href="https://t.me/tipstreamgroup" target="_blank"> <b class="fas fa-users"> Group </b> </a> </li>
-    </p>
-  </div>
+    <!-- Community Section -->
+    <div id="community" class="section">
+      <h2>Our Community</h2>
+      <ul class="community-links">
+        <li>
+          <a href="https://t.me/tipstream" target="_blank">
+            <img src="img/channel.png" alt="Channel Icon" class="icon"> Channel
+          </a>
+        </li>
+        <li>
+          <a href="https://t.me/tipstreamgroup" target="_blank">
+            <img src="img/group.png" alt="Group Icon" class="icon"> Group
+          </a>
+        </li>
+      </ul>
+    </div>
 
-  <!-- Feedback Section -->
-  <div id="feedback" class="content-section">
-    <h2>Feedback</h2>
-    <div class="feedback-container">
-      <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
+    <!-- Feedback Section -->
+    <div id="feedback" class="section">
+      <h2>Send Us Your Feedback</h2>
+      <textarea id="feedback-input" placeholder="Write your feedback here..."></textarea>
       <button id="send-feedback">Send Feedback</button>
     </div>
   </div>
 
-  <!-- Bottom Menu -->
-  <div class="bottom-menu">
-    <a href="#home"><i class="fas fa-home"></i><span> Home</span></a>
-    <a href="#community"><i class="fas fa-users"></i><span> Community</span></a>
-    <a href="#feedback"><i class="fas fa-comment-alt"></i><span> Feedback</span></a>
-  </div>
+  <!-- Bottom Navigation Menu -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active" data-target="home">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="#" class="nav-item" data-target="community">
+      <i class="fas fa-users"></i><span>Community</span>
+    </a>
+    <a href="#" class="nav-item" data-target="feedback">
+      <i class="fas fa-comment-dots"></i><span>Feedback</span>
+    </a>
+  </nav>
 
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
+
