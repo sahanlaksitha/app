@@ -12,15 +12,14 @@
       margin: 20px;
       background: white;
       color: #333;
-      background-image: "img\OIP.jpg";
     }
     h1 {
       color: #4CAF50;
     }
     img {
       border-radius: 50%;
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
     }
     .container {
       margin: 20px auto;
@@ -56,45 +55,44 @@
       color: #4CAF50;
       text-decoration: none;
     }
-
-    p {
-      text-align: left;
-    }
     a:hover {
       text-decoration: bold;
     }
     .feedback-container {
       text-align: left;
     }
-h4 {
-text-align: left;
-}
-
-
-    
+    .user-details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    .user-text {
+      text-align: left;
+    }
   </style>
 </head>
 <body>
   <h1>Welcome!</h1>
   
-  <div id="user-details">
-    <!-- User details will be populated here -->
+  <div id="user-details" class="user-details">
+    <!-- User details and profile picture will be populated here -->
   </div>
 
   <div class="container">
     <h2>Our Telegram Channels</h2>
     <p>
-      <a href="https://t.me/tipstream" target="_blank">Channel </a><br>
+      <a href="https://t.me/tipstream" target="_blank">Channel</a><br>
       <a href="https://t.me/tipstreamgroup" target="_blank">Group</a>
     </p>
-<br>
+    <br>
     <h4>Send Us Your Feedback</h4>
     <div class="feedback-container">
       <textarea id="feedback" placeholder="Write your feedback here..."></textarea>
       <br>
       <button id="send-feedback">Send Feedback to Admins</button>
     </div>
-  
+  </div>
 
   <script>
     // Initialize Telegram Web App
@@ -102,20 +100,25 @@ text-align: left;
 
     // Parse the user's initial data
     const initData = tg.initDataUnsafe;
+    const user = initData.user;
 
-    // Display user details
+    // Display user details and profile picture
     const userDetailsDiv = document.getElementById("user-details");
 
+    // Check for profile photo (Telegram provides photo_url only in certain environments)
+    const profilePic = user.photo_url
+      ? `<img src="${user.photo_url}" alt="Profile Picture">`
+      : `<img src="https://via.placeholder.com/100" alt="Default Profile Picture">`;
+
     userDetailsDiv.innerHTML = `
-      <h2>Hello, ${initData.user.first_name} ${initData.user.last_name || ''}!</h2>
-      <p>Username: @${initData.user.username || 'N/A'}</p>
-      <p>User ID: ${initData.user.id}</p>
-    
-      
+      ${profilePic}
+      <div class="user-text">
+        <h2>Hello, ${user.first_name} ${user.last_name || ''}!</h2>
+        <p>Username: @${user.username || 'N/A'}</p>
+        <p>User ID: ${user.id}</p>
+      </div>
     `;
 
-   
-    
     // Feedback button logic
     const feedbackButton = document.getElementById("send-feedback");
     const feedbackInput = document.getElementById("feedback");
@@ -136,8 +139,8 @@ text-align: left;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: ADMIN_CHAT_ID, // Send feedback to admin
-          text: `Feedback from ${initData.user.first_name} (${initData.user.username || 'N/A'} - ${initData.user.id}):\n\n${feedbackMessage}`,
+          chat_id: ADMIN_CHAT_ID,
+          text: `Feedback from ${user.first_name} (${user.username || 'N/A'} - ${user.id}):\n\n${feedbackMessage}`,
         }),
       });
 
@@ -153,7 +156,5 @@ text-align: left;
     tg.expand();
   </script>
 </body>
-</html>
-
 </html>
 
