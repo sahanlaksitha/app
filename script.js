@@ -31,14 +31,11 @@ function showPage(pageId, clickedElement) {
 // Feedback Button Logic
 document.getElementById("send-feedback").addEventListener("click", () => {
   const feedbackText = document.getElementById("feedback-text").value.trim();
+
   if (!feedbackText) {
     alert("Please write feedback before sending.");
     return;
   }
-
-  alert("Thank you for your feedback!");
-  document.getElementById("feedback-text").value = "";
-});
 
  // Send Feedback to Bot (Replace with your bot's API and chat ID)
   const ADMIN_CHAT_ID = "1258152672";
