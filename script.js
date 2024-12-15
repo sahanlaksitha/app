@@ -1,36 +1,40 @@
-// Initialize Telegram WebApp
-const tg = window.Telegram.WebApp;
+document.addEventListener("DOMContentLoaded", () => {
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll(".content-section");
 
-// Display User Details
-const userDetailsDiv = document.getElementById("user-details");
-const user = tg.initDataUnsafe?.user;
+  // Function to handle navigation clicks
+  navItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
 
-if (user) {
-  userDetailsDiv.innerHTML = `
-    <p><strong>Name:</strong> ${user.first_name} ${user.last_name || ""}</p>
-    <p><strong>Username:</strong> @${user.username || "N/A"}</p>
-    <p><strong>ID:</strong> ${user.id}</p>
-  `;
-} else {
-  userDetailsDiv.innerHTML = `<p>User details not available.</p>`;
-}
+      // Remove active class from all nav items
+      navItems.forEach((nav) => nav.classList.remove("active"));
 
-// Page Switching Logic
-function showPage(pageId, clickedElement) {
-  // Hide all pages
-  document.querySelectorAll(".page").forEach((page) => {
-    page.style.display = "none";
+      // Add active class to the clicked nav item
+      item.classList.add("active");
+
+      // Show the corresponding section
+      const targetId = item.getAttribute("href").substring(1);
+      sections.forEach((section) => {
+        section.classList.remove("active");
+        if (section.id === targetId) {
+          section.classList.add("active");
+        }
+      });
+    });
   });
 
-  // Show the selected page
-  document.getElementById(pageId).style.display = "block";
+  // Optional: Telegram Web App user details initialization
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
 
-  // Update active navigation link
-  document.querySelectorAll(".nav-item").forEach((item) => {
-    item.classList.remove("active");
-  });
-  clickedElement.classList.add("active");
-}
+  if (user) {
+    document.getElementById("user-name").textContent = `Hello, ${user.first_name}!`;
+    document.getElementById("user-username").textContent = `Username: @${user.username || "N/A"}`;
+    document.getElementById("user-photo").src = user.photo_url || "https://via.placeholder.com/80";
+  }
+});
+
 
 // Feedback Button Logic
 document.getElementById("send-feedback").addEventListener("click", () => {
