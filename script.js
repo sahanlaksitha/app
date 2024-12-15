@@ -1,79 +1,66 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item");
-  const sections = document.querySelectorAll(".content-section");
+// Initialize Telegram WebApp
+const tg = window.Telegram.WebApp;
 
-  // Show the correct section and highlight navigation
-  function setActiveSection(target) {
-    sections.forEach((section) => {
-      section.classList.remove("active");
-      if (section.id === target) {
-        section.classList.add("active");
-      }
-    });
+// Display User Details
+const userDetailsDiv = document.getElementById("user-details");
+const user = tg.initDataUnsafe?.user;
 
-    navItems.forEach((item) => {
-      item.classList.remove("active");
-      if (item.getAttribute("href").substring(1) === target) {
-        item.classList.add("active");
-      }
-    });
-  }
+if (user) {
+  userDetailsDiv.innerHTML = `
+    <p><strong>Name:</strong> ${user.first_name} ${user.last_name || ""}</p>
+    <p><strong>Username:</strong> @${user.username || "N/A"}</p>
+    <p><strong>ID:</strong> ${user.id}</p>
+  `;
+} else {
+  userDetailsDiv.innerHTML = `<p>User details not available.</p>`;
+}
 
-  // Add click event to nav items
-  navItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetSection = item.getAttribute("href").substring(1);
-      setActiveSection(targetSection);
-    });
+// Page Switching Logic
+function showPage(pageId, clickedElement) {
+  // Hide all pages
+  document.querySelectorAll(".page").forEach((page) => {
+    page.style.display = "none";
   });
 
-  // Set default active section
-  setActiveSection("home");
-});
+  // Show the selected page
+  document.getElementById(pageId).style.display = "block";
 
+  // Update active navigation link
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.classList.remove("active");
+  });
+  clickedElement.classList.add("active");
+}
 
-  // Optional: Telegram Web App user details initialization
-  const tg = window.Telegram.WebApp;
-  const user = tg.initDataUnsafe.user;
+// Feedback Button Logic
+document.getElementById("send-feedback").addEventListener("click", () => {
+  const feedbackText = document.getElementById("feedback-text").value.trim();
 
-  if (user) {
-    document.getElementById("user-name").textContent = `Hello, ${user.first_name}!`;
-    document.getElementById("user-username").textContent = `Username: @${user.username || "N/A"}`;
-    document.getElementById("user-photo").src = user.photo_url || "https://via.placeholder.com/80";
-  }
-});
-
-
-// Feedback Logic
-const feedbackButton = document.getElementById("send-feedback");
-const feedbackInput = document.getElementById("feedback-input");
-
-feedbackButton.addEventListener("click", async () => {
-  const feedback = feedbackInput.value.trim();
-
-  if (!feedback) {
-    alert("Please write some feedback.");
+  if (!feedbackText) {
+    alert("Please write feedback before sending.");
     return;
   }
 
-  // Send feedback via Telegram Bot API
-  const response = await fetch(
-    `https://api.telegram.org/bot8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: "1258152672",
-        text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
-      }),
-    }
-  );
-
-  if (response.ok) {
-    alert("Feedback sent successfully!");
-    feedbackInput.value = "";
-  } else {
-    alert("Something went wrong, please try again.");
-  }
+  // Send Feedback to Bot (Replace with your bot's API and chat ID)
+  const ADMIN_CHAT_ID = "YOUR_ADMIN_CHAT_ID";
+  const BOT_TOKEN = "YOUR_BOT_TOKEN";
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: ADMIN_CHAT_ID,
+      text: `Feedback from ${user?.first_name || "Anonymous"}:\n\n${feedbackText}`,
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert("Feedback sent successfully!");
+      document.getElementById("feedback-text").value = "";
+    })
+    .catch(() => {
+      alert("Error sending feedback. Try again later.");
+    });
 });
+
+// Expand WebApp
+tg.expand();
