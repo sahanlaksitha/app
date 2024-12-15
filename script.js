@@ -2,27 +2,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const navItems = document.querySelectorAll(".nav-item");
   const sections = document.querySelectorAll(".content-section");
 
-  // Function to handle navigation clicks
+  // Navigation click handler
   navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
 
-      // Remove active class from all nav items
+      // Update active menu item
       navItems.forEach((nav) => nav.classList.remove("active"));
-
-      // Add active class to the clicked nav item
       item.classList.add("active");
 
-      // Show the corresponding section
-      const targetId = item.getAttribute("href").substring(1);
+      // Show related section
+      const targetSection = item.getAttribute("href").substring(1);
       sections.forEach((section) => {
         section.classList.remove("active");
-        if (section.id === targetId) {
+        if (section.id === targetSection) {
           section.classList.add("active");
         }
       });
     });
   });
+});
+
 
   // Optional: Telegram Web App user details initialization
   const tg = window.Telegram.WebApp;
