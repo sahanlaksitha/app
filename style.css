@@ -28,6 +28,11 @@ header {
   padding: 20px;
 }
 
+h1 {
+  font-size: 30px;
+}
+
+
 .page.active {
   display: block;
 }
@@ -55,7 +60,7 @@ header {
 
 .user-info p {
   margin: 5px 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 /* Community Links */
