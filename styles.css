@@ -1,32 +1,106 @@
-/* General Styles */
-body {
+/* General Reset */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
-  color: #fff;
-  background-color: #121212; /* Dark Theme */
+}
+
+body {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Hide all sections except active one */
+.content-section {
+  display: none;
+  padding: 20px;
+}
+
+.content-section.active {
+  display: block;
+}
+
+/* Top Section (Home Only) */
+.top-section {
+  background-color: #0088cc; /* Telegram Blue */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.top-section p {
+  margin: 0;
+}
+
+/* User Details */
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-details img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+/* Community Section */
+.community-links {
   text-align: center;
 }
 
-a {
-  color: #00aaff; /* Telegram Blue */
+.community-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.community-item img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.community-item a {
   text-decoration: none;
+  color: #0088cc; /* Telegram Blue */
+  font-weight: bold;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-/* Header */
-header {
-  background-color: #0088cc; /* Telegram Blue */
+/* Feedback Section */
+#feedback-text {
+  width: 90%;
+  height: 100px;
+  margin: 10px auto;
+  display: block;
   padding: 10px;
-  font-size: 1.2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
 }
 
-/* Pages */
-.page {
-  padding: 20px;
+button {
+  background-color: #0088cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #007bb5;
 }
 
 /* Bottom Navigation */
@@ -34,60 +108,26 @@ header {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #1e1e1e; /* Dark background */
+  background-color: #0088cc; /* Telegram Blue */
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 10px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .nav-item {
-  color: #bbb;
-  text-align: center;
+  color: white;
   text-decoration: none;
+  text-align: center;
+  font-size: 14px;
 }
 
 .nav-item i {
-  font-size: 20px;
   display: block;
-}
-
-.nav-item span {
-  font-size: 12px;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .nav-item.active {
-  color: #00aaff; /* Active color */
-}
-
-.nav-item:hover {
-  color: #00aaff;
-}
-
-/* Feedback Section */
-textarea {
-  width: 90%;
-  height: 100px;
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-  background: #333;
-  color: white;
-  border: 1px solid #555;
-  border-radius: 5px;
-  resize: none;
-}
-
-button {
-  background-color: #00aaff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0077cc;
+  color: #ffd700; /* Highlighted active menu */
 }
