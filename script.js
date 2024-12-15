@@ -1,41 +1,40 @@
-// Initialize Telegram Web App
-const tg = window.Telegram.WebApp;
+document.addEventListener("DOMContentLoaded", () => {
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll(".content-section");
 
-// User details
-const user = tg.initDataUnsafe?.user || {
-  first_name: "User",
-  username: "username",
-  id: "123456",
-  photo_url: null,
-};
+  // Function to handle navigation clicks
+  navItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
 
-// Populate User Details
-document.getElementById("user-name").innerText = `Hello, ${user.first_name}!`;
-document.getElementById("user-username").innerText = `Username: @${user.username || "N/A"}`;
-document.getElementById("user-id").innerText = `User ID: ${user.id}`;
-if (user.photo_url) {
-  document.getElementById("profile-pic").src = user.photo_url;
-}
+      // Remove active class from all nav items
+      navItems.forEach((nav) => nav.classList.remove("active"));
 
-// Menu Navigation Logic
-const sections = document.querySelectorAll(".section");
-const navItems = document.querySelectorAll(".nav-item");
+      // Add active class to the clicked nav item
+      item.classList.add("active");
 
-navItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const target = item.getAttribute("data-target");
-
-    // Switch Active Section
-    sections.forEach((section) => {
-      section.classList.remove("active");
+      // Show the corresponding section
+      const targetId = item.getAttribute("href").substring(1);
+      sections.forEach((section) => {
+        section.classList.remove("active");
+        if (section.id === targetId) {
+          section.classList.add("active");
+        }
+      });
     });
-    document.getElementById(target).classList.add("active");
-
-    // Update Active Menu Item
-    navItems.forEach((nav) => nav.classList.remove("active"));
-    item.classList.add("active");
   });
+
+  // Optional: Telegram Web App user details initialization
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
+
+  if (user) {
+    document.getElementById("user-name").textContent = `Hello, ${user.first_name}!`;
+    document.getElementById("user-username").textContent = `Username: @${user.username || "N/A"}`;
+    document.getElementById("user-photo").src = user.photo_url || "https://via.placeholder.com/80";
+  }
 });
+
 
 // Feedback Logic
 const feedbackButton = document.getElementById("send-feedback");
