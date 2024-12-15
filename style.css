@@ -130,35 +130,96 @@ button:hover {
   font-size: 16px;
 }
 
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-color: #121212; /* Dark Theme */
+  text-align: center;
+}
+
+a {
+  color: #00aaff; /* Telegram Blue */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+header {
+  background-color: #0088cc; /* Telegram Blue */
+  padding: 10px;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Pages */
+.page {
+  padding: 20px;
+}
+
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
+  background-color: #1e1e1e; /* Dark background */
   display: flex;
   justify-content: space-around;
-  background-color: #1e2a38;
   padding: 10px 0;
-  border-top: 2px solid #ff9800;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .nav-item {
-  color: #ffffff;
+  color: #bbb;
+  text-align: center;
   text-decoration: none;
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: color 0.3s;
 }
 
 .nav-item i {
   font-size: 20px;
-  margin-bottom: 5px;
+  display: block;
 }
 
-.nav-item.active,
+.nav-item span {
+  font-size: 12px;
+}
+
+.nav-item.active {
+  color: #00aaff; /* Active color */
+}
+
 .nav-item:hover {
-  color: #ffb74d;
+  color: #00aaff;
+}
+
+/* Feedback Section */
+textarea {
+  width: 90%;
+  height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+  resize: none;
+}
+
+button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0077cc;
 }
