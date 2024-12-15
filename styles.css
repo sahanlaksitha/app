@@ -102,7 +102,6 @@ button {
 button:hover {
   background-color: #007bb5;
 }
-
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed;
@@ -113,6 +112,7 @@ button:hover {
   justify-content: space-around;
   align-items: center;
   padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
@@ -122,13 +122,21 @@ button:hover {
   font-size: 14px;
 }
 
-.nav-item i {
+.nav-item svg {
   display: block;
-  font-size: 22px; /* Icon size */
+  margin: 0 auto;
+  fill: white; /* Icon Color */
+  width: 24px;
+  height: 24px;
   margin-bottom: 3px;
 }
 
-.nav-item.active {
-  color: #ffd700; /* Highlighted active menu */
+.nav-item:hover {
+  color: #ffd700; /* Gold hover effect */
 }
+
+.nav-item.active svg {
+  fill: #ffd700; /* Highlighted icon */
+}
+
 
