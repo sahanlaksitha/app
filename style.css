@@ -24,37 +24,7 @@ h1, h2 {
   border-bottom-right-radius: 20px;
 }
 
-.app-title {
-  font-size: 24px;
-  font-weight: bold;
-}
 
-.verified {
-  color: #fff;
-  background-color: #4CAF50;
-  padding: 2px 6px;
-  border-radius: 50%;
-}
-
-.promo-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.promo-banner i {
-  font-size: 20px;
-}
-
-.more-btn {
-  background-color: #ffffff;
-  color: #333;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
 
 /* Main Content Sections */
 .content-section {
