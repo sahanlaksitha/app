@@ -35,16 +35,59 @@ header {
 
 /* User Details */
 .user-details {
+  background-color: #1f1f1f;
+  color: #0088cc;
+  padding: 20px;
   margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.user-details p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+/* Community Links */
+.community-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.community-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background-color: #1f1f1f;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  color: #0088cc;
+  font-size: 1.1rem;
+  width: 90%;
+  max-width: 400px;
+}
+
+.community-link img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.community-link:hover {
+  background-color: #333333;
 }
 
 /* Feedback Section */
 textarea {
-  width: 100%;
+  width: 90%;
   height: 100px;
   background-color: #333333;
   color: #ffffff;
@@ -67,37 +110,6 @@ button {
 
 button:hover {
   background-color: #0077aa;
-}
-
-/* Community Links */
-.community-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 20px auto;
-  align-items: center;
-}
-
-.community-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #1f1f1f;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.community-link img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.community-link:hover {
-  background-color: #333333;
 }
 
 /* Bottom Navigation */
