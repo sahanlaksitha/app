@@ -2,25 +2,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const navItems = document.querySelectorAll(".nav-item");
   const sections = document.querySelectorAll(".content-section");
 
-  // Navigation click handler
+  // Show the correct section and highlight navigation
+  function setActiveSection(target) {
+    sections.forEach((section) => {
+      section.classList.remove("active");
+      if (section.id === target) {
+        section.classList.add("active");
+      }
+    });
+
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("href").substring(1) === target) {
+        item.classList.add("active");
+      }
+    });
+  }
+
+  // Add click event to nav items
   navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
-
-      // Update active menu item
-      navItems.forEach((nav) => nav.classList.remove("active"));
-      item.classList.add("active");
-
-      // Show related section
       const targetSection = item.getAttribute("href").substring(1);
-      sections.forEach((section) => {
-        section.classList.remove("active");
-        if (section.id === targetSection) {
-          section.classList.add("active");
-        }
-      });
+      setActiveSection(targetSection);
     });
   });
+
+  // Set default active section
+  setActiveSection("home");
 });
 
 
