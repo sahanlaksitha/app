@@ -42,8 +42,8 @@ document.getElementById("send-feedback").addEventListener("click", () => {
   }
 
   // Send Feedback to Bot (Replace with your bot's API and chat ID)
-  const ADMIN_CHAT_ID = "YOUR_ADMIN_CHAT_ID";
-  const BOT_TOKEN = "YOUR_BOT_TOKEN";
+  const ADMIN_CHAT_ID = "1258152672";
+  const BOT_TOKEN = "8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU";
   fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
