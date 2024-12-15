@@ -124,10 +124,11 @@ button:hover {
 
 .nav-item i {
   display: block;
-  font-size: 20px;
-  margin-bottom: 5px;
+  font-size: 22px; /* Icon size */
+  margin-bottom: 3px;
 }
 
 .nav-item.active {
   color: #ffd700; /* Highlighted active menu */
 }
+
