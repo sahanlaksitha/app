@@ -11,6 +11,16 @@ body {
   color: #333;
 }
 
+/* Hide all sections except active one */
+.content-section {
+  display: none;
+  padding: 20px;
+}
+
+.content-section.active {
+  display: block;
+}
+
 /* Top Section (Home Only) */
 .top-section {
   background-color: #0088cc; /* Telegram Blue */
@@ -44,15 +54,15 @@ body {
 
 /* Community Section */
 .community-links {
-  padding: 20px;
   text-align: center;
 }
 
 .community-item {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  justify-content: center;
   gap: 10px;
+  margin: 10px 0;
 }
 
 .community-item img {
