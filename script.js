@@ -1,40 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item");
-  const sections = document.querySelectorAll(".content-section");
+// Initialize Telegram WebApp
+const tg = window.Telegram.WebApp;
 
-  // Function to handle navigation clicks
-  navItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
+// Display User Details
+const userDetailsDiv = document.getElementById("user-details");
+const user = tg.initDataUnsafe?.user;
 
-      // Remove active class from all nav items
-      navItems.forEach((nav) => nav.classList.remove("active"));
+if (user) {
+  userDetailsDiv.innerHTML = `
+    <p><strong>Name:</strong> ${user.first_name} ${user.last_name || ""}</p>
+    <p><strong>Username:</strong> @${user.username || "N/A"}</p>
+    <p><strong>ID:</strong> ${user.id}</p>
+  `;
+} else {
+  userDetailsDiv.innerHTML = `<p>User details not available.</p>`;
+}
 
-      // Add active class to the clicked nav item
-      item.classList.add("active");
-
-      // Show the corresponding section
-      const targetId = item.getAttribute("href").substring(1);
-      sections.forEach((section) => {
-        section.classList.remove("active");
-        if (section.id === targetId) {
-          section.classList.add("active");
-        }
-      });
-    });
+// Page Switching Logic
+function showPage(pageId, clickedElement) {
+  // Hide all pages
+  document.querySelectorAll(".page").forEach((page) => {
+    page.style.display = "none";
   });
 
-  // Optional: Telegram Web App user details initialization
-  const tg = window.Telegram.WebApp;
-  const user = tg.initDataUnsafe.user;
+  // Show the selected page
+  document.getElementById(pageId).style.display = "block";
 
-  if (user) {
-    document.getElementById("user-name").textContent = `Hello, ${user.first_name}!`;
-    document.getElementById("user-username").textContent = `Username: @${user.username || "N/A"}`;
-    document.getElementById("user-photo").src = user.photo_url || "https://via.placeholder.com/80";
-  }
-});
-
+  // Update active navigation link
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.classList.remove("active");
+  });
+  clickedElement.classList.add("active");
+}
 
 // Feedback Button Logic
 document.getElementById("send-feedback").addEventListener("click", () => {
@@ -53,7 +49,7 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: ADMIN_CHAT_ID,
-      text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
+      text: `Feedback from ${user?.first_name || "Anonymous"}:\n\n${feedbackText}`,
     }),
   })
     .then((res) => res.json())
@@ -68,3 +64,5 @@ document.getElementById("send-feedback").addEventListener("click", () => {
 
 // Expand WebApp
 tg.expand();
+
+
