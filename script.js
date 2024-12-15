@@ -49,7 +49,7 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: ADMIN_CHAT_ID,
-      text: `Feedback from ${user?.first_name || "Anonymous"}:\n\n${feedbackText}`,
+      text: `Feedback from ${user.first_name} (@${user.username} - ${user.id}):\n\n${feedback}`,
     }),
   })
     .then((res) => res.json())
