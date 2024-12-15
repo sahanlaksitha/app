@@ -7,11 +7,56 @@
 }
 
 body {
-  background-color: #f1f1f1;
-  color: #333;
+  background-color: #101820; /* Dark background */
+  color: #ffffff;
+  text-align: center;
 }
 
-/* Hide all sections except active one */
+h1, h2 {
+  color: #ffb74d;
+}
+
+/* Top Section */
+.top-section {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+  padding: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.verified {
+  color: #fff;
+  background-color: #4CAF50;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.promo-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.promo-banner i {
+  font-size: 20px;
+}
+
+.more-btn {
+  background-color: #ffffff;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Main Content Sections */
 .content-section {
   display: none;
   padding: 20px;
@@ -21,113 +66,99 @@ body {
   display: block;
 }
 
-/* Top Section (Home Only) */
-.top-section {
-  background-color: #0088cc; /* Telegram Blue */
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-size: 18px;
-}
-
-.top-section p {
-  margin: 0;
-}
-
-/* User Details */
 .user-details {
   display: flex;
   align-items: center;
-  gap: 15px;
-  background: white;
-  padding: 10px;
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.user-details img {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-}
-
-/* Community Section */
-.community-links {
-  text-align: center;
-}
-
-.community-item {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin: 10px 0;
 }
 
-.community-item img {
+.user-details img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  border: 2px solid #ffb74d;
 }
 
-.community-item a {
-  text-decoration: none;
-  color: #0088cc; /* Telegram Blue */
-  font-weight: bold;
-}
-
-/* Feedback Section */
-#feedback-text {
+textarea {
   width: 90%;
   height: 100px;
-  margin: 10px auto;
-  display: block;
   padding: 10px;
-  border: 1px solid #ccc;
+  margin: 10px 0;
   border-radius: 5px;
+  border: none;
   resize: none;
 }
 
 button {
-  background-color: #0088cc;
+  background-color: #4CAF50;
   color: white;
+  padding: 10px 15px;
   border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #007bb5;
+  background-color: #45a049;
+}
+
+/* Community Links */
+.community-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.community-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #1e2a38;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.community-item img {
+  border-radius: 50%;
+}
+
+.community-item a {
+  color: #ffb74d;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: #0088cc; /* Telegram Blue */
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  background-color: #1e2a38;
   padding: 10px 0;
+  border-top: 2px solid #ff9800;
 }
 
 .nav-item {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
-  text-align: center;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.3s;
 }
 
 .nav-item i {
-  display: block;
   font-size: 20px;
   margin-bottom: 5px;
 }
 
-.nav-item.active {
-  color: #ffd700; /* Highlighted active menu */
+.nav-item.active,
+.nav-item:hover {
+  color: #ffb74d;
 }
