@@ -3,75 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enhanced Telegram Web App</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Telegram Web App</title>
+  <!-- Telegram Web App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-XR50fu5j6gP9AzSuCNZjDEv0nyTz1+KYYZZVpgcFA0shEygMmLKcbqMsT+g9Cvi5n52EVeUCDm8OsznbBcX1Vw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 </head>
 <body>
-  <!-- Top Section -->
-  <header class="top-section">
-    <h1 class="app-title"> </h1>
-    <div class="promo-banner">
-      <i class="fas fa-star"></i>
-      <p>Telegram Business Cards are coming.</p>
-      <button class="more-btn">More</button>
-    </div>
+  <!-- Header -->
+  <header id="header">
+    <h1>Welcome to the App</h1>
   </header>
 
-  <!-- Main Content Sections -->
-  <main>
-    <!-- Home Section -->
-    <section id="home" class="content-section active">
-      <h2>Welcome!</h2>
-      <div id="user-details" class="user-details">
-        <img id="user-photo" src="https://via.placeholder.com/80" alt="User">
-        <div>
-          <p id="user-name">Hello, User!</p>
-          <p id="user-username">Username: @example</p>
-        </div>
-      </div>
-    </section>
+  <!-- Pages -->
+  <div class="page" id="home">
+    <h2>Home</h2>
+    <div id="user-details" class="user-details">
+      <p>Loading user details...</p>
+    </div>
+  </div>
 
-    <!-- Community Section -->
-    <section id="community" class="content-section">
-      <h2>Community</h2>
-      <div class="community-links">
-        <div class="community-item">
-          <img src="https://via.placeholder.com/50" alt="Channel">
-          <a href="https://t.me/tipstream" target="_blank">Telegram Channel</a>
-        </div>
-        <div class="community-item">
-          <img src="https://via.placeholder.com/50" alt="Group">
-          <a href="https://t.me/tipstreamgroup" target="_blank">Telegram Group</a>
-        </div>
-      </div>
-    </section>
+  <div class="page" id="community" style="display: none;">
+    <h2>Community</h2>
+    <p>
+      Join our channels:
+      <br>
+      <a href="https://t.me/tipstream" target="_blank">
+        <i class="fa-solid fa-users"></i> Channel
+      </a>
+      <br>
+      <a href="https://t.me/tipstreamgroup" target="_blank">
+        <i class="fa-solid fa-user-group"></i> Group
+      </a>
+    </p>
+  </div>
 
-    <!-- Feedback Section -->
-    <section id="feedback" class="content-section">
-      <h2>Send Us Your Feedback</h2>
-      <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
-      <button id="send-feedback">Send Feedback</button>
-    </section>
-  </main>
+  <div class="page" id="feedback" style="display: none;">
+    <h2>Feedback</h2>
+    <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
+    <button id="send-feedback">Send Feedback</button>
+  </div>
 
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
-    <a href="#home" class="nav-item active">
-      <i class="fas fa-home"></i>
+    <a href="#home" class="nav-item active" onclick="showPage('home', this)">
+      <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="#community" class="nav-item">
-      <i class="fas fa-users"></i>
+    <a href="#community" class="nav-item" onclick="showPage('community', this)">
+      <i class="fa-solid fa-users"></i>
       <span>Community</span>
     </a>
-    <a href="#feedback" class="nav-item">
-      <i class="fas fa-comment"></i>
+    <a href="#feedback" class="nav-item" onclick="showPage('feedback', this)">
+      <i class="fa-solid fa-comments"></i>
       <span>Feedback</span>
     </a>
   </nav>
 
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
