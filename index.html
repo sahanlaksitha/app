@@ -9,16 +9,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <!-- Header (Home Page Only) -->
+  <!-- Header -->
   <header id="header">
-    <h1>Welcome to Our App</h1>
+    <h1>Telegram WebApp</h1>
   </header>
 
   <!-- Pages -->
   <main>
     <!-- Home Page -->
     <section id="home" class="page active">
-      <h2>Home</h2>
+      <h2>User Details</h2>
       <div id="user-details" class="user-details">
         <p>Loading user details...</p>
       </div>
@@ -27,16 +27,13 @@
     <!-- Community Page -->
     <section id="community" class="page">
       <h2>Community</h2>
-      <p>
-        Join our channels:
-      </p>
       <div class="community-links">
         <a href="https://t.me/tipstream" target="_blank" class="community-link">
-          <img src="img/channel.png" alt="Channel Icon">
+          <img src="img/channel-icon.png" alt="Channel Icon">
           <span>TipStream Channel</span>
         </a>
         <a href="https://t.me/tipstreamgroup" target="_blank" class="community-link">
-          <img src="img/group.png" alt="Group Icon">
+          <img src="img/group-icon.png" alt="Group Icon">
           <span>TipStream Group</span>
         </a>
       </div>
@@ -53,7 +50,7 @@
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="#home" class="nav-item active" onclick="showPage('home', this)">
-      <i class="fa-solid fa-house"></i><span>Home</span>
+      <i class="fa-solid fa-user"></i><span>Home</span>
     </a>
     <a href="#community" class="nav-item" onclick="showPage('community', this)">
       <i class="fa-solid fa-users"></i><span>Community</span>
