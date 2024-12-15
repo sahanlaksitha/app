@@ -4,71 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Telegram Web App</title>
-  <!-- Telegram Web App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-XR50fu5j6gP9AzSuCNZjDEv0nyTz1+KYYZZVpgcFA0shEygMmLKcbqMsT+g9Cvi5n52EVeUCDm8OsznbBcX1Vw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (Home Page Only) -->
   <header id="header">
-    <h1>Welcome to the App</h1>
+    <h1>Welcome to Our App</h1>
   </header>
 
   <!-- Pages -->
-  <div class="page" id="home">
-    <h2>Home</h2>
-    <div id="user-details" class="user-details">
-      <p>Loading user details...</p>
-    </div>
-  </div>
+  <main>
+    <!-- Home Page -->
+    <section id="home" class="page active">
+      <h2>Home</h2>
+      <div id="user-details" class="user-details">
+        <p>Loading user details...</p>
+      </div>
+    </section>
 
-  <div class="page" id="community" style="display: none;">
-    <h2>Community</h2>
-    <p>
-      Join our channels:
-      <br>
-      <a href="https://t.me/tipstream" target="_blank">
-        <i class="fa-solid fa-users"></i> Channel
-      </a>
-      <br>
-      <a href="https://t.me/tipstreamgroup" target="_blank">
-        <i class="fa-solid fa-user-group"></i> Group
-      </a>
-    </p>
-  </div>
+    <!-- Community Page -->
+    <section id="community" class="page">
+      <h2>Community</h2>
+      <p>
+        Join our channels:
+      </p>
+      <div class="community-links">
+        <a href="https://t.me/tipstream" target="_blank" class="community-link">
+          <img src="img/channel.png" alt="Channel Icon">
+          <span>TipStream Channel</span>
+        </a>
+        <a href="https://t.me/tipstreamgroup" target="_blank" class="community-link">
+          <img src="img/group.png" alt="Group Icon">
+          <span>TipStream Group</span>
+        </a>
+      </div>
+    </section>
 
-  <div class="page" id="feedback" style="display: none;">
-    <h2>Feedback</h2>
-    <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
-    <button id="send-feedback">Send Feedback</button>
-  </div>
+    <!-- Feedback Page -->
+    <section id="feedback" class="page">
+      <h2>Feedback</h2>
+      <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
+      <button id="send-feedback">Send Feedback</button>
+    </section>
+  </main>
 
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="#home" class="nav-item active" onclick="showPage('home', this)">
-      <i class="fa-solid fa-house"></i>
-      <span>Home</span>
+      <i class="fa-solid fa-house"></i><span>Home</span>
     </a>
     <a href="#community" class="nav-item" onclick="showPage('community', this)">
-      <i class="fa-solid fa-users"></i>
-      <span>Community</span>
+      <i class="fa-solid fa-users"></i><span>Community</span>
     </a>
     <a href="#feedback" class="nav-item" onclick="showPage('feedback', this)">
-      <i class="fa-solid fa-comments"></i>
-      <span>Feedback</span>
+      <i class="fa-solid fa-comment"></i><span>Feedback</span>
     </a>
   </nav>
 
-  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
