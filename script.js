@@ -40,7 +40,7 @@ function sendFeedback() {
   const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
 
   // Send the feedback message to your bot
-  fetch(`https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`, {
+  fetch(`https://api.telegram.org/bot<8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU>/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
