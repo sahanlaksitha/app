@@ -28,39 +28,37 @@ function showPage(pageId, clickedElement) {
   clickedElement.classList.add("active");
 }
 
-// Feedback Button Logic
-document.getElementById("send-feedback").addEventListener("click", () => {
-  const feedbackText = document.getElementById("feedback-text").value.trim();
+function sendFeedback() {
+  const feedbackInput = document.getElementById("feedback-input").value.trim();
 
-  if (!feedbackText) {
-    alert("Please write feedback before sending.");
+  if (!feedbackInput) {
+    showModal("Please write some feedback before sending.");
     return;
   }
 
- // Send Feedback to Bot (Replace with your bot's API and chat ID)
-  const ADMIN_CHAT_ID = "1258152672";
-  const BOT_TOKEN = "8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU";
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  // Admin chat ID where feedback will be sent
+  const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
+
+  // Send the feedback message to your bot
+  fetch(`https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: ADMIN_CHAT_ID,
-      text: `Feedback from ${user?.first_name || "Anonymous"}:\n\n${feedbackText}`,
+      text: `Feedback from ${user.first_name} (${user.username || 'N/A'} - ${user.id}):\n\n${feedbackInput}`,
     }),
   })
-    
-.then((res) => res.json())
-    .then(() => {
-      alert("Feedback sent successfully!");
-      document.getElementById("feedback-text").value = "";
-    })
-    .catch(() => {
-      alert("Error sending feedback. Try again later.");
-    });
-});
-  // Simulate feedback submission (you can replace this with your API logic)
-  showModal("Thank you for your feedback!");
-  document.getElementById("feedback-input").value = ""; // Clear the textarea
+  .then(response => {
+    if (response.ok) {
+      showModal("Thank you for your feedback!");
+      document.getElementById("feedback-input").value = ""; // Clear the textarea
+    } else {
+      showModal("Something went wrong. Please try again later.");
+    }
+  })
+  .catch(error => {
+    showModal("Something went wrong. Please try again later.");
+  });
 }
 
 // Function to show the custom modal
@@ -77,6 +75,7 @@ function closeModal() {
   const modal = document.getElementById("feedback-modal");
   modal.style.display = "none";
 }
+
 
 
 
