@@ -48,15 +48,27 @@ document.getElementById("send-feedback").addEventListener("click", () => {
       text: `Feedback from ${user?.first_name || "Anonymous"}:\n\n${feedbackText}`,
     }),
   })
-    .then((res) => res.json())
-    .then(() => {
-      alert("Feedback sent successfully!");
-      document.getElementById("feedback-text").value = "";
-    })
-    .catch(() => {
-      alert("Error sending feedback. Try again later.");
-    });
-});
+    
+
+  // Simulate feedback submission (you can replace this with your API logic)
+  showModal("Thank you for your feedback!");
+  document.getElementById("feedback-input").value = ""; // Clear the textarea
+}
+
+// Function to show the custom modal
+function showModal(message) {
+  const modal = document.getElementById("feedback-modal");
+  const modalMessage = document.getElementById("modal-message");
+
+  modalMessage.textContent = message;
+  modal.style.display = "flex";
+}
+
+// Function to close the custom modal
+function closeModal() {
+  const modal = document.getElementById("feedback-modal");
+  modal.style.display = "none";
+}
 
 
 
