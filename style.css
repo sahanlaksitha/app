@@ -64,8 +64,8 @@ h1 {
 /* User Details */
 .user-details {
   display: flex;
-  align-items: center;
-  justify-content: left;
+  align-items: left;
+  justify-content: center;
   background-color: black;
   
  
