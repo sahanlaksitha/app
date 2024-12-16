@@ -62,16 +62,7 @@ document.getElementById("send-feedback").addEventListener("click", () => {
 
 
 
-// Function to show the selected page
-function showPage(pageId, clickedElement) {
-  const pages = document.querySelectorAll('.page');
-  pages.forEach((page) => (page.style.display = 'none'));
-  
-  document.getElementById(pageId).style.display = 'block';
 
-  // Update active class on navigation
-  document.querySelectorAll('.nav-item').forEach((item) => item.classList.remove('active'));
-  clickedElement.classList.add('active');
 
   // Fetch channel messages when Wall is shown
   if (pageId === "wall") {
