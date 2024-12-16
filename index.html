@@ -64,26 +64,25 @@
 
    <!-- Feedback Section -->
              <section id="feedback" class="page">
-                <h2>Feedback</h2>
-<div >
- 
-  <textarea id="feedback-input" placeholder="Write your feedback..."></textarea><br>
-  <button onclick="sendFeedback()">Send Feedback</button>
-</div>
+               <div class="feedback-container">
+    <h2>Send Us Your Feedback</h2>
+    <textarea id="feedback-input" placeholder="Write your feedback here..."></textarea>
+    <button id="send-feedback-btn">Send Feedback</button>
+  </div>
 </section>
 
     
-    
+   <!-- Custom Modal -->
+  <div id="feedback-modal" class="modal">
+    <div class="modal-content">
+      <p id="modal-message">Feedback submitted successfully!</p>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>  
     
     
   </main>
-<!-- Custom Modal Pop-up -->
-<div id="feedback-modal" class="modal">
-  <div class="modal-content">
-    <p id="modal-message">Thank you for your feedback!</p>
-    <button onclick="closeModal()">OK</button>
-  </div>
-</div>
+
 
 
 <!-- Bottom Navigation -->
