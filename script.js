@@ -28,80 +28,61 @@ function showPage(pageId, clickedElement) {
   clickedElement.classList.add("active");
 }
 
-document.getElementById('feedback-button').addEventListener('click', sendFeedback);
+ // Admin Chat ID and Bot Token
+    const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
+    const BOT_TOKEN = "YOUR_BOT_TOKEN"; // Replace with your actual bot token
 
-function sendFeedback() {
-  const feedbackInput = document.getElementById("feedback-input").value.trim();
+    // Event Listener for Feedback Button
+    document.getElementById("send-feedback-btn").addEventListener("click", sendFeedback);
 
-  if (!feedbackInput) {
-    showModal("Please write some feedback before sending.");
-    return;
-  }
+    // Send Feedback Function
+    function sendFeedback() {
+      const feedbackInput = document.getElementById("feedback-input").value.trim();
 
-  // Simulate successful feedback submission
-  showModal("Thank you for your feedback!");
-  document.getElementById("feedback-input").value = ""; // Clear the textarea
-}
+      if (!feedbackInput) {
+        showModal("Please write some feedback before sending.");
+        return;
+      }
 
-function showModal(message) {
-  const modal = document.getElementById("feedback-modal");
-  const modalMessage = document.getElementById("modal-message");
+      // Construct message with user details
+      const message = `Feedback from ${user.first_name} ${user.last_name || ""} (@${user.username || "N/A"} - ${user.id}):\n\n${feedbackInput}`;
 
-  modalMessage.textContent = message;
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("feedback-modal").style.display = "none";
-}
-
-
-  // Admin chat ID where feedback will be sent
-  const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
-
-  // Send the feedback message to your bot
-  fetch(`https://api.telegram.org/bot<8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU>/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: ADMIN_CHAT_ID,
-      text: `Feedback from ${user.first_name} (${user.username || 'N/A'} - ${user.id}):\n\n${feedbackInput}`,
-    }),
-  })
-  .then(response => {
-    if (response.ok) {
-      showModal("Thank you for your feedback!");
-      document.getElementById("feedback-input").value = ""; // Clear the textarea
-    } else {
-      showModal("Something went wrong. Please try again later.");
+      // Send feedback to Telegram Bot API
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: ADMIN_CHAT_ID,
+          text: message
+        }),
+      })
+        .then(response => {
+          if (response.ok) {
+            showModal("Thank you! Your feedback has been sent.");
+            document.getElementById("feedback-input").value = ""; // Clear input
+          } else {
+            showModal("Error sending feedback. Please try again later.");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          showModal("Error sending feedback. Please try again.");
+        });
     }
-  })
-  .catch(error => {
-    showModal("Something went wrong. Please try again later.");
-  });
-}
 
-// Function to show the custom modal
-function showModal(message) {
-  const modal = document.getElementById("feedback-modal");
-  const modalMessage = document.getElementById("modal-message");
+    // Show Modal Function
+    function showModal(message) {
+      const modal = document.getElementById("feedback-modal");
+      const modalMessage = document.getElementById("modal-message");
 
-  modalMessage.textContent = message;
-  modal.style.display = "flex";
-}
+      modalMessage.textContent = message;
+      modal.style.display = "flex";
+    }
 
-// Function to close the custom modal
-function closeModal() {
-  const modal = document.getElementById("feedback-modal");
-  modal.style.display = "none";
-}
-
-
-
-
-
-
-
+    // Close Modal Function
+    function closeModal() {
+      document.getElementById("feedback-modal").style.display = "none";
+    }
 
 
 
