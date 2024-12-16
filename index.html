@@ -62,13 +62,14 @@
       </div>
     </section>
 
-    <!-- Feedback Page -->
-    <section id="feedback" class="page">
-      <h1>Feedback</h1> <br>
-      <textarea id="feedback-text" placeholder="Write your feedback here..."></textarea>
-      <button id="send-feedback">Send Feedback</button>
-  
-      <!-- Custom Modal Pop-up -->
+   <!-- Feedback Section -->
+<div id="feedback" class="page" style="display: none;">
+  <h2>Feedback</h2>
+  <textarea id="feedback-input" placeholder="Write your feedback..."></textarea><br>
+  <button onclick="sendFeedback()">Send Feedback</button>
+</div>
+
+<!-- Custom Modal Pop-up -->
 <div id="feedback-modal" class="modal">
   <div class="modal-content">
     <p id="modal-message">Thank you for your feedback!</p>
