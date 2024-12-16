@@ -58,5 +58,48 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     });
 });
 
+
+
+
+  // Fetch channel messages when Wall is shown
+  if (pageId === "wall") {
+    fetchChannelMessages();
+  }
+}
+
+// Fetch messages from Telegram channel using Bot API
+async function fetchChannelMessages() {
+  const botToken = '8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU'; // Replace with your bot token
+  const chatId = '@tipstream'; // Replace with your channel username
+  const url = `https://api.telegram.org/bot${botToken}/getUpdates`;
+
+  const messagesContainer = document.getElementById("channel-messages");
+  messagesContainer.innerHTML = "Loading messages...";
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const messages = data.result
+      .filter((update) => update.message && update.message.chat.username === chatId)
+      .map((update) => update.message.text);
+
+    if (messages.length > 0) {
+      messagesContainer.innerHTML = messages
+        .map((msg) => `<p>${msg}</p>`)
+        .join("");
+    } else {
+      messagesContainer.innerHTML = "No messages found.";
+    }
+  } catch (error) {
+    console.error("Error fetching channel messages:", error);
+    messagesContainer.innerHTML = "Failed to load messages.";
+  }
+}
+
+
+
+
+
 // Expand WebApp
 tg.expand();
