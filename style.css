@@ -87,7 +87,7 @@ h1 {
 .user-info p {
   margin: 5px 0;
   font-size: 1rem;
-  align: left;
+  align-items: left;
 }
 
 /* Community Links */
