@@ -39,7 +39,7 @@ header {
   
 margin-top: 20px auto; /* Spacing around the section */
   margin-bottom: 0%;
-padding: 0px; /* Padding inside the section */
+padding: 15px; /* Padding inside the section */
   max-width: 100%; /* Responsive width */
   text-align: center; /* Center align text */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Optional: Add a slight shadow */
