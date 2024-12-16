@@ -3,81 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram-Like Reactions and Comments</title>
+    <title>Broadcast Page</title>
     <style>
+        /* General Styles */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
             margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 20px auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
         }
 
-        .post {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
+        h1 {
+            text-align: center;
+            color: #007bff;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
+        /* Login Section */
+        .login-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-section h2 {
             margin-bottom: 10px;
         }
 
-        .user-avatar {
+        .login-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Broadcasting Section */
+        .broadcast-section {
+            margin-top: 20px;
+        }
+
+        .broadcast-input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .post-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .post-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Posts Section */
+        .post {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #ccc;
-            margin-right: 10px;
+            background-color: #007bff;
         }
 
         .username {
             font-weight: bold;
-            color: #007bff;
         }
 
-        .post-text {
+        .post-content {
             margin: 10px 0;
-            color: #444;
         }
 
-        .post-image {
-            width: 100%;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .actions {
+        .post-actions {
             display: flex;
             gap: 20px;
-            color: #555;
             font-size: 14px;
-        }
-
-        .actions span {
             cursor: pointer;
-            display: flex;
-            align-items: center;
+            color: #555;
         }
 
-        .actions span:hover {
+        .post-actions span:hover {
             color: #007bff;
         }
 
-        .comments-section {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f9f9f9;
+        .comments {
+            margin-top: 10px;
+        }
+
+        .comment {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
             border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 5px;
         }
 
         .comment-box {
@@ -93,137 +151,143 @@
             border-radius: 5px;
         }
 
-        .comment-button {
+        .comment-btn {
             background-color: #007bff;
-            color: #fff;
+            color: white;
             border: none;
             padding: 8px 12px;
             cursor: pointer;
             border-radius: 5px;
         }
 
-        .comment-button:hover {
+        .comment-btn:hover {
             background-color: #0056b3;
         }
-
-        .comments-list {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .comment {
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        /* Telegram Login */
-        #telegram-login {
-            margin: 20px auto;
-            text-align: center;
-        }
     </style>
+    <!-- Telegram Widget -->
     <script src="https://telegram.org/js/telegram-widget.js?22" 
-        data-telegram-login="YOUR_BOT_NAME" 
-        data-size="large" 
-        data-request-access="write" 
-        data-lang="en" 
-        data-userpic="false" 
-        data-callback="onTelegramAuth" 
-        async>
+            data-telegram-login="YOUR_BOT_NAME" 
+            data-request-access="write" 
+            data-userpic="false" 
+            data-lang="en" 
+            data-callback="onTelegramAuth" 
+            async>
     </script>
 </head>
 <body>
-    <!-- Telegram Login -->
-    <div id="telegram-login"></div>
-
+    <!-- Container -->
     <div class="container">
-        <!-- Post Section -->
-        <div class="post">
-            <div class="user-info">
-                <div class="user-avatar"></div>
-                <div class="username">John Doe</div>
+        <h1>Broadcast Page</h1>
+
+        <!-- Login Section -->
+        <div class="login-section" id="login-section">
+            <h2>Login to Broadcast</h2>
+            <div class="login-options">
+                <!-- Telegram Login -->
+                <div id="telegram-login"></div>
+                <!-- Manual Login -->
+                <button class="login-btn" onclick="manualLogin()">Login Manually</button>
             </div>
-            <div class="post-text">
-                Telegram-like post example with reactions and comments!
-            </div>
-            <img src="https://via.placeholder.com/600x300" alt="Post Image" class="post-image">
-            <div class="actions">
-                <span onclick="toggleLike(this)">👍 <span class="like-text">Like</span> (<span class="like-count">0</span>)</span>
-                <span onclick="toggleComments(this)">💬 Comment</span>
-            </div>
-            <!-- Comments Section -->
-            <div class="comments-section" style="display:none;">
-                <div class="comment-box">
-                    <input type="text" placeholder="Write a comment..." class="comment-input">
-                    <button class="comment-button" onclick="addComment(this)">Post</button>
-                </div>
-                <div class="comments-list">
-                    <!-- Comments are dynamically added here -->
-                </div>
-            </div>
+        </div>
+
+        <!-- Broadcasting Section -->
+        <div class="broadcast-section" id="broadcast-section" style="display:none;">
+            <h2>Create a Post</h2>
+            <input type="text" id="broadcast-text" class="broadcast-input" placeholder="Write something...">
+            <button class="post-btn" onclick="createPost()">Post</button>
+        </div>
+
+        <!-- Posts Section -->
+        <div id="posts-section">
+            <!-- Posts will be dynamically added here -->
         </div>
     </div>
 
     <script>
-        let telegramUser = null;
+        let loggedInUser = null;
 
-        // Telegram Authentication
+        // Telegram Login
         function onTelegramAuth(user) {
-            telegramUser = user; // Store Telegram user data
+            loggedInUser = { username: user.username, avatar: 'https://via.placeholder.com/40' };
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('broadcast-section').style.display = 'block';
             alert(`Welcome, ${user.username}`);
         }
 
-        // Like/Unlike functionality
+        // Manual Login
+        function manualLogin() {
+            const username = prompt("Enter your username:");
+            if (username) {
+                loggedInUser = { username: username, avatar: 'https://via.placeholder.com/40' };
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('broadcast-section').style.display = 'block';
+                alert(`Welcome, ${username}`);
+            }
+        }
+
+        // Create a New Post
+        function createPost() {
+            const text = document.getElementById('broadcast-text').value.trim();
+            if (!text || !loggedInUser) return;
+
+            const postSection = document.getElementById('posts-section');
+            const post = document.createElement('div');
+            post.className = 'post';
+
+            post.innerHTML = `
+                <div class="post-header">
+                    <img src="${loggedInUser.avatar}" alt="avatar" class="avatar">
+                    <span class="username">${loggedInUser.username}</span>
+                </div>
+                <div class="post-content">${text}</div>
+                <div class="post-actions">
+                    <span onclick="toggleLike(this)">👍 Like (<span class="like-count">0</span>)</span>
+                    <span onclick="toggleComments(this)">💬 Comment</span>
+                </div>
+                <div class="comments" style="display:none;">
+                    <div class="comment-box">
+                        <input type="text" placeholder="Add a comment..." class="comment-input">
+                        <button class="comment-btn" onclick="addComment(this)">Post</button>
+                    </div>
+                </div>
+            `;
+            postSection.prepend(post);
+            document.getElementById('broadcast-text').value = '';
+        }
+
+        // Toggle Like
         function toggleLike(element) {
-            if (!telegramUser) {
-                alert("Please log in via Telegram to react!");
-                return;
-            }
-
-            const likeText = element.querySelector('.like-text');
             const likeCount = element.querySelector('.like-count');
-
-            if (likeText.textContent === "Like") {
-                likeText.textContent = "Liked";
-                likeCount.textContent = parseInt(likeCount.textContent) + 1;
+            let count = parseInt(likeCount.textContent);
+            if (element.classList.contains('liked')) {
+                count--;
+                element.classList.remove('liked');
             } else {
-                likeText.textContent = "Like";
-                likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                count++;
+                element.classList.add('liked');
             }
-
-            // Example: Send like to backend
-            console.log(`User ${telegramUser.username} liked/unliked the post.`);
+            likeCount.textContent = count;
         }
 
-        // Toggle comments section
+        // Toggle Comments Section
         function toggleComments(element) {
-            const commentsSection = element.closest('.post').querySelector('.comments-section');
-            commentsSection.style.display = commentsSection.style.display === "none" ? "block" : "none";
+            const commentsSection = element.parentElement.nextElementSibling;
+            commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Add comment functionality
+        // Add a Comment
         function addComment(button) {
-            if (!telegramUser) {
-                alert("Please log in via Telegram to comment!");
-                return;
-            }
+            const input = button.previousElementSibling;
+            const commentText = input.value.trim();
+            if (!commentText || !loggedInUser) return;
 
-            const commentBox = button.closest('.comment-box');
-            const commentInput = commentBox.querySelector('.comment-input');
-            const commentsList = commentBox.closest('.comments-section').querySelector('.comments-list');
-            const commentText = commentInput.value.trim();
+            const commentsBox = button.closest('.comments');
+            const comment = document.createElement('div');
+            comment.className = 'comment';
+            comment.textContent = `${loggedInUser.username}: ${commentText}`;
+            commentsBox.appendChild(comment);
 
-            if (commentText) {
-                const comment = document.createElement('div');
-                comment.classList.add('comment');
-                comment.textContent = `${telegramUser.username}: ${commentText}`;
-                commentsList.appendChild(comment);
-
-                commentInput.value = ""; // Clear input field
-
-                // Example: Send comment to backend
-                console.log(`User ${telegramUser.username} commented: ${commentText}`);
-            }
+            input.value = '';
         }
     </script>
 </body>
