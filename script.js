@@ -28,6 +28,8 @@ function showPage(pageId, clickedElement) {
   clickedElement.classList.add("active");
 }
 
+document.getElementById('feedback-button').addEventListener('click', sendFeedback);
+
 function sendFeedback() {
   const feedbackInput = document.getElementById("feedback-input").value.trim();
 
@@ -35,6 +37,24 @@ function sendFeedback() {
     showModal("Please write some feedback before sending.");
     return;
   }
+
+  // Simulate successful feedback submission
+  showModal("Thank you for your feedback!");
+  document.getElementById("feedback-input").value = ""; // Clear the textarea
+}
+
+function showModal(message) {
+  const modal = document.getElementById("feedback-modal");
+  const modalMessage = document.getElementById("modal-message");
+
+  modalMessage.textContent = message;
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("feedback-modal").style.display = "none";
+}
+
 
   // Admin chat ID where feedback will be sent
   const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
