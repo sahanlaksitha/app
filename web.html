@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Post</title>
+    <title>Social Media Post with Telegram Integration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,11 +64,6 @@
             cursor: pointer;
         }
 
-        .actions span {
-            display: flex;
-            align-items: center;
-        }
-
         .actions span:hover {
             color: #007bff;
         }
@@ -112,11 +107,20 @@
             font-size: 14px;
             color: #555;
         }
+
+        #telegram-login {
+            margin: 20px auto;
+            text-align: center;
+        }
     </style>
+    <script src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="YOUR_BOT_NAME" data-size="large" data-userpic="false" data-request-access="write" data-lang="en" data-callback="onTelegramAuth" async></script>
 </head>
 <body>
+    <!-- Telegram Login -->
+    <div id="telegram-login"></div>
+
     <div class="container">
-        <!-- Post 1 -->
+        <!-- Post -->
         <div class="post">
             <div class="user-info">
                 <div class="user-avatar"></div>
@@ -132,39 +136,84 @@
             </div>
             <div class="comments-section" style="display:none;">
                 <div class="comment-box">
-                    <input type="text" placeholder="Write a comment..." class="comment-input">
+                    <input type="text" placeholder="Write a comment..." class="comment-input" id="comment-input">
                     <button class="comment-button" onclick="addComment(this)">Post</button>
                 </div>
                 <div class="comments-list">
-                    <!-- Comments will be added here dynamically -->
+                    <!-- Comments will be dynamically loaded here -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function likePost(element) {
-            const likeCount = element.querySelector(".like-count");
-            let count = parseInt(likeCount.textContent);
-            likeCount.textContent = count + 1;
+        let telegramUser = null;
+
+        // Telegram Authentication Callback
+        function onTelegramAuth(user) {
+            telegramUser = user; // Store user data
+            alert(`Logged in as ${user.username}`);
         }
 
+        // Function to handle likes (store in backend)
+        async function likePost(element) {
+            const likeCount = element.querySelector(".like-count");
+            let count = parseInt(likeCount.textContent);
+
+            // Example backend API call to store the like
+            const response = await fetch('https://example.com/api/like', {
+                method: 'POST',
+                body: JSON.stringify({ postId: 1, user: telegramUser }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (response.ok) {
+                likeCount.textContent = count + 1;
+            } else {
+                alert("Error liking post.");
+            }
+        }
+
+        // Toggle comments visibility
         function toggleComments(element) {
             const commentsSection = element.closest('.post').querySelector('.comments-section');
             commentsSection.style.display = commentsSection.style.display === "none" ? "block" : "none";
         }
 
-        function addComment(button) {
+        // Add Comment Functionality
+        async function addComment(button) {
             const commentBox = button.closest('.comment-box');
             const commentInput = commentBox.querySelector('.comment-input');
-            const commentsList = commentBox.closest('.comments-section').querySelector('.comments-list');
-            
-            if (commentInput.value.trim() !== "") {
-                const newComment = document.createElement("div");
-                newComment.classList.add("comment");
-                newComment.textContent = commentInput.value;
-                commentsList.appendChild(newComment);
-                commentInput.value = ""; // Clear input
+            const commentsList = button.closest('.comments-section').querySelector('.comments-list');
+
+            if (!telegramUser) {
+                alert("Please log in with Telegram to comment.");
+                return;
+            }
+
+            const commentText = commentInput.value.trim();
+
+            if (commentText !== "") {
+                // Example backend API call to store the comment
+                const response = await fetch('https://example.com/api/comment', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        postId: 1,
+                        user: telegramUser.username,
+                        comment: commentText
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (response.ok) {
+                    const newComment = document.createElement("div");
+                    newComment.classList.add("comment");
+                    newComment.textContent = `${telegramUser.username}: ${commentText}`;
+                    commentsList.appendChild(newComment);
+                    commentInput.value = ""; // Clear input
+                } else {
+                    alert("Error posting comment.");
+                }
             }
         }
     </script>
