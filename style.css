@@ -163,6 +163,8 @@ button:hover {
   justify-content: space-around;
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 
 .nav-item {
@@ -173,6 +175,8 @@ button:hover {
 
 .nav-item i {
   font-size: 1.5rem;
+font-size: 24px;
+  margin-bottom: 5px;
 }
 
 .nav-item span {
@@ -187,3 +191,23 @@ button:hover {
 .nav-item:hover {
   color: 	#1E90FF;
 }
+
+.channel-box {
+  background-color: #333;
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.channel-box p {
+  margin: 10px 0;
+  border-bottom: 1px solid #555;
+  padding-bottom: 5px;
+}
+
+
