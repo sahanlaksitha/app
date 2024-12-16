@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wall Page</title>
     <style>
-        
+     <link rel="stylesheet" href="style.css">   
         
         /* Wall section styles */
         .wall {
@@ -51,14 +51,26 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Menu -->
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#wall">Wall</a>
-        <a href="#community">Community</a>
-        <a href="#feedback">Feedback</a>
-    </nav>
+    <!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <a href="#home" class="nav-item active" onclick="showPage('home', this)">
+    <i class="fa-solid fa-house"></i><span>Home</span>
+  </a>
+  
+  <a href="wall.html" class="nav-item" onclick="showPage('wall', this)">
+    <i class="fa-solid fa-comments"></i><span>Wall</span>
+  </a>
+  
+  <a href="#community" class="nav-item" onclick="showPage('community', this)">
+    <i class="fa-solid fa-comments"></i><span>Community</span>
+  </a>
+  <a href="#feedback" class="nav-item" onclick="showPage('feedback', this)">
+    <i class="fa-solid fa-pen-to-square"></i><span>Feedback</span>
+  </a>
+</nav>
 
+
+  <script src="script.js"></script>
     <!-- Wall Section -->
     <section id="wall" class="wall">
         <h2>Admin Wall</h2>
