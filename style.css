@@ -65,7 +65,7 @@ h1 {
 .user-details {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   background-color: black;
   padding: 20px;
   margin: 20px auto;
@@ -87,7 +87,7 @@ h1 {
 .user-info p {
   margin: 5px 0;
   font-size: 1rem;
-  align-items: left;
+ 
 }
 
 /* Community Links */
