@@ -58,5 +58,66 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     });
 });
 
+
+
+
+
+// Function to show the selected page
+function showPage(pageId, clickedElement) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach((page) => (page.style.display = 'none'));
+  
+  document.getElementById(pageId).style.display = 'block';
+
+  // Update active class on navigation
+  document.querySelectorAll('.nav-item').forEach((item) => item.classList.remove('active'));
+  clickedElement.classList.add('active');
+
+  // Fetch channel messages when Wall is shown
+  if (pageId === "wall") {
+    fetchChannelMessages();
+  }
+}
+
+// Fetch messages from Telegram channel using Bot API
+async function fetchChannelMessages() {
+  const botToken = '8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU'; // Replace with your bot token
+  const chatId = '@tipstream'; // Replace with your channel username
+  const url = `https://api.telegram.org/bot${botToken}/getUpdates`;
+
+  const messagesContainer = document.getElementById("channel-messages");
+  messagesContainer.innerHTML = "Loading messages...";
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const messages = data.result
+      .filter((update) => update.message && update.message.chat.username === chatId)
+      .map((update) => update.message.text);
+
+    if (messages.length > 0) {
+      messagesContainer.innerHTML = messages
+        .map((msg) => `<p>${msg}</p>`)
+        .join("");
+    } else {
+      messagesContainer.innerHTML = "No messages found.";
+    }
+  } catch (error) {
+    console.error("Error fetching channel messages:", error);
+    messagesContainer.innerHTML = "Failed to load messages.";
+  }
+}
+
+// Initialize Home page on load
+showPage('home', document.querySelector('.nav-item'));
+
+
+
+
+
+
+
 // Expand WebApp
 tg.expand();
+
