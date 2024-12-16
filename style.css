@@ -17,8 +17,8 @@ body {
   text-align: center;
   margin-bottom: 60px; /* For bottom navigation */
   padding: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   position: relative;
   }
 
