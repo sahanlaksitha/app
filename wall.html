@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Page</title>
+    <style>
+        
+        
+        /* Wall section styles */
+        .wall {
+            padding: 20px;
+            background: white;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+        }
+        .post {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .comment {
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #007BFF;
+        }
+        button, a.link-btn {
+            padding: 8px 12px;
+            margin-top: 10px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover, a.link-btn:hover {
+            background-color: #0056b3;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#wall">Wall</a>
+        <a href="#community">Community</a>
+        <a href="#feedback">Feedback</a>
+    </nav>
+
+    <!-- Wall Section -->
+    <section id="wall" class="wall">
+        <h2>Admin Wall</h2>
+        <!-- Admin Post Upload -->
+        <div>
+            <h3>Upload a Post</h3>
+            <form id="postForm">
+                <textarea id="postContent" placeholder="Write a new post..." rows="4"></textarea>
+                <br>
+                <button type="button" onclick="addPost()">Post</button>
+            </form>
+        </div>
+        
+        <hr>
+
+        <!-- Uploaded Posts -->
+        <div id="postsContainer">
+            <h3>Posts</h3>
+            <!-- Example Post -->
+            <div class="post">
+                <p><strong>Admin:</strong> Welcome to the wall section!</p>
+                <!-- Comments Section -->
+                <div class="comments">
+                    <h4>Comments</h4>
+                    <div class="comment">User1: Great post!</div>
+                </div>
+                <!-- Viewer Buttons -->
+                <a href="#" class="link-btn">Visit Link</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript to add dynamic functionality -->
+    <script>
+        function addPost() {
+            const postContent = document.getElementById("postContent").value;
+            if (postContent.trim() === "") {
+                alert("Post content cannot be empty!");
+                return;
+            }
+
+            // Create a new post
+            const postsContainer = document.getElementById("postsContainer");
+            const newPost = document.createElement("div");
+            newPost.className = "post";
+            newPost.innerHTML = `
+                <p><strong>Admin:</strong> ${postContent}</p>
+                <div class="comments">
+                    <h4>Comments</h4>
+                </div>
+                <a href="#" class="link-btn">Visit Link</a>
+            `;
+
+            // Append the new post
+            postsContainer.appendChild(newPost);
+
+            // Clear the textarea
+            document.getElementById("postContent").value = "";
+        }
+    </script>
+</body>
+</html>
