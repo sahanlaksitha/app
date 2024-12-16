@@ -15,25 +15,18 @@ userDetailsDiv.querySelector(".user-info").innerHTML = `
   <p><strong>ID:</strong> ${user.id || "N/A"}</p>
 `;
 
+// Page Switching Logic
 function showPage(pageId, clickedElement) {
-  // Hide all pages
-  const pages = document.querySelectorAll('.page');
-  pages.forEach((page) => (page.style.display = 'none'));
-  
-  // Show the selected page
-  document.getElementById(pageId).style.display = 'block';
+  document.querySelectorAll(".page").forEach((page) => {
+    page.classList.remove("active");
+  });
+  document.getElementById(pageId).classList.add("active");
 
-  // Update active class on navigation menu
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach((item) => item.classList.remove('active'));
-  clickedElement.classList.add('active');
-  
-  // Fetch channel messages when Wall is selected
-  if (pageId === "wall") {
-    fetchChannelMessages();
-  }
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.classList.remove("active");
+  });
+  clickedElement.classList.add("active");
 }
-
 
 // Feedback Button Logic
 document.getElementById("send-feedback").addEventListener("click", () => {
@@ -65,20 +58,5 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Expand WebApp
 tg.expand();
-
