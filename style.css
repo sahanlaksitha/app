@@ -32,10 +32,10 @@ header {
 
 /* Dark Section Styling */
 .dark-section {
-  background-color: #222; /* Dark background color */
+  background-color: black; /* Dark background color */
   color: #fff; /* White text for contrast */
   border-radius: 15px; /* Rounded corners */
-  margin-top: -10px auto; /* Spacing around the section */
+  margin: 20px auto; /* Spacing around the section */
   padding: 20px; /* Padding inside the section */
   max-width: 100%; /* Responsive width */
   text-align: center; /* Center align text */
