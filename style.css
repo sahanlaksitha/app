@@ -34,10 +34,12 @@ header {
 .dark-section {
   background-color: black; /* Dark background color */
   color: #fff; /* White text for contrast */
-  border-radius: 15px; /* Rounded corners */
-  margin-top: 20px auto; /* Spacing around the section */
+  border-top-right-radius: 15px; /* Rounded corners */
+ border-top-left-radius: 15px; 
+  
+margin-top: 20px auto; /* Spacing around the section */
   margin-bottom: 0%;
-padding: 20px; /* Padding inside the section */
+padding: 0px; /* Padding inside the section */
   max-width: 100%; /* Responsive width */
   text-align: center; /* Center align text */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Optional: Add a slight shadow */
