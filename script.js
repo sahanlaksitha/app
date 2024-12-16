@@ -49,7 +49,15 @@ document.getElementById("send-feedback").addEventListener("click", () => {
     }),
   })
     
-
+.then((res) => res.json())
+    .then(() => {
+      alert("Feedback sent successfully!");
+      document.getElementById("feedback-text").value = "";
+    })
+    .catch(() => {
+      alert("Error sending feedback. Try again later.");
+    });
+});
   // Simulate feedback submission (you can replace this with your API logic)
   showModal("Thank you for your feedback!");
   document.getElementById("feedback-input").value = ""; // Clear the textarea
