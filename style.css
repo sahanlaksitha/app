@@ -26,6 +26,18 @@ header {
   font-size: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
+/* Dark Section Styling */
+.dark-section {
+  background-color: #222; /* Dark background color */
+  color: #fff; /* White text for contrast */
+  border-radius: 15px; /* Rounded corners */
+  margin: 10px auto; /* Spacing around the section */
+  padding: 20px; /* Padding inside the section */
+  max-width: 90%; /* Responsive width */
+  text-align: center; /* Center align text */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Optional: Add a slight shadow */
+}
+
 
 /* Pages */
 .page {
