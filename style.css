@@ -17,10 +17,7 @@ body {
   text-align: center;
   margin-bottom: 60px; /* For bottom navigation */
   padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  position: relative;
-  }
+}
 
 /* Header */
 header {
@@ -40,7 +37,7 @@ header {
   border-radius: 15px; /* Rounded corners */
   margin: 10px auto; /* Spacing around the section */
   padding: 20px; /* Padding inside the section */
-  max-width: 90%; /* Responsive width */
+  max-width: 100%; /* Responsive width */
   text-align: center; /* Center align text */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Optional: Add a slight shadow */
 }
