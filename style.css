@@ -64,10 +64,11 @@ h1 {
 /* User Details */
 .user-details {
   display: flex;
-  align-items: left;
-  justify-content: center;
-  background-color: black;
-  
+  flex-direction: row; /* Keep elements in a row */
+  align-items: center; /* Vertically align items */
+  justify-content: flex-start; /* Align content to the left */
+  text-align: left; /* Align text content to the left */
+  padding: 10px; /* Add spacing around the details */
  
   
   
@@ -92,6 +93,7 @@ h1 {
 .user-info p {
   margin: 5px 0;
   font-size: 1rem;
+   text-align: left; /* Align user details text */
  
 }
 
