@@ -25,7 +25,14 @@ header {
   padding: 15px 0;
   font-size: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+  padding: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: relative;
 }
+
 /* Dark Section Styling */
 .dark-section {
   background-color: #222; /* Dark background color */
