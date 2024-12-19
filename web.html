@@ -1,294 +1,186 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Broadcast Page</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telegram Wall</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
     <style>
-        /* General Styles */
         body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
-
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #ffffff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
+            margin-top: 30px;
         }
-
-        h1 {
-            text-align: center;
-            color: #007bff;
-        }
-
-        /* Login Section */
-        .login-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-section h2 {
-            margin-bottom: 10px;
-        }
-
-        .login-options {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .login-btn {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .login-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Broadcasting Section */
-        .broadcast-section {
-            margin-top: 20px;
-        }
-
-        .broadcast-input {
-            width: 100%;
-            margin: 10px 0;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .post-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .post-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Posts Section */
         .post {
             border: 1px solid #ddd;
+            padding: 20px;
             margin: 20px 0;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #fafafa;
+            background-color: #fff;
+            border-radius: 10px;
         }
-
         .post-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #007bff;
-        }
-
-        .username {
+            font-size: 1.5rem;
             font-weight: bold;
         }
-
-        .post-content {
-            margin: 10px 0;
+        .comments-section, .reactions-section {
+            margin-top: 20px;
         }
-
-        .post-actions {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            color: #555;
-        }
-
-        .post-actions span:hover {
-            color: #007bff;
-        }
-
-        .comments {
-            margin-top: 10px;
-        }
-
-        .comment {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            margin-top: 5px;
-        }
-
         .comment-box {
-            display: flex;
-            gap: 10px;
             margin-top: 10px;
         }
-
-        .comment-input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .comment-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .comment-btn:hover {
-            background-color: #0056b3;
+        .reaction-btns button {
+            margin-right: 10px;
         }
     </style>
-    <!-- Telegram Widget -->
-    <script src="https://telegram.org/js/telegram-widget.js?22" 
-            data-telegram-login="YOUR_BOT_NAME" 
-            data-request-access="write" 
-            data-userpic="false" 
-            data-lang="en" 
-            data-callback="onTelegramAuth" 
-            async>
-    </script>
 </head>
 <body>
-    <!-- Container -->
-    <div class="container">
-        <h1>Broadcast Page</h1>
 
-        <!-- Login Section -->
-        <div class="login-section" id="login-section">
-            <h2>Login to Broadcast</h2>
-            <div class="login-options">
-                <!-- Telegram Login -->
-                <div id="telegram-login"></div>
-                <!-- Manual Login -->
-                <button class="login-btn" onclick="manualLogin()">Login Manually</button>
-            </div>
-        </div>
-
-        <!-- Broadcasting Section -->
-        <div class="broadcast-section" id="broadcast-section" style="display:none;">
-            <h2>Create a Post</h2>
-            <input type="text" id="broadcast-text" class="broadcast-input" placeholder="Write something...">
-            <button class="post-btn" onclick="createPost()">Post</button>
-        </div>
-
-        <!-- Posts Section -->
-        <div id="posts-section">
-            <!-- Posts will be dynamically added here -->
-        </div>
+<div class="container">
+    <!-- Login Section -->
+    <div id="login-section" class="text-center">
+        <h1>Welcome to the Telegram Wall</h1>
+        <p>Log in with your Telegram account to comment and react to posts.</p>
+        <a href="https://t.me/tipstreambot?start=login" class="btn btn-primary btn-lg">Log in with Telegram</a>
     </div>
 
-    <script>
-        let loggedInUser = null;
+    <!-- Wall of Posts (Visible after login) -->
+    <div id="wall-section" style="display:none;">
+        <h2 class="text-center">Post Wall</h2>
 
-        // Telegram Login
-        function onTelegramAuth(user) {
-            loggedInUser = { username: user.username, avatar: 'https://via.placeholder.com/40' };
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('broadcast-section').style.display = 'block';
-            alert(`Welcome, ${user.username}`);
-        }
+        <!-- Admin Post Creation (Only Visible to Admin) -->
+        <div id="admin-post-section" class="mb-5">
+            <h3>Create a New Post</h3>
+            <form id="create-post-form">
+                <div class="mb-3">
+                    <label for="post-title" class="form-label">Post Title</label>
+                    <input type="text" class="form-control" id="post-title" placeholder="Enter post title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="post-content" class="form-label">Post Content</label>
+                    <textarea class="form-control" id="post-content" rows="4" placeholder="Enter post content" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Create Post</button>
+            </form>
+        </div>
 
-        // Manual Login
-        function manualLogin() {
-            const username = prompt("Enter your username:");
-            if (username) {
-                loggedInUser = { username: username, avatar: 'https://via.placeholder.com/40' };
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('broadcast-section').style.display = 'block';
-                alert(`Welcome, ${username}`);
-            }
-        }
-
-        // Create a New Post
-        function createPost() {
-            const text = document.getElementById('broadcast-text').value.trim();
-            if (!text || !loggedInUser) return;
-
-            const postSection = document.getElementById('posts-section');
-            const post = document.createElement('div');
-            post.className = 'post';
-
-            post.innerHTML = `
+        <!-- Display Posts -->
+        <div id="posts">
+            <!-- Example Post -->
+            <div class="post" id="post-1">
                 <div class="post-header">
-                    <img src="${loggedInUser.avatar}" alt="avatar" class="avatar">
-                    <span class="username">${loggedInUser.username}</span>
+                    Post Title #1
                 </div>
-                <div class="post-content">${text}</div>
-                <div class="post-actions">
-                    <span onclick="toggleLike(this)">👍 Like (<span class="like-count">0</span>)</span>
-                    <span onclick="toggleComments(this)">💬 Comment</span>
+                <div class="post-content">
+                    This is the content of the post.
                 </div>
-                <div class="comments" style="display:none;">
-                    <div class="comment-box">
-                        <input type="text" placeholder="Add a comment..." class="comment-input">
-                        <button class="comment-btn" onclick="addComment(this)">Post</button>
+
+                <!-- Reactions -->
+                <div class="reactions-section">
+                    <h5>Reactions</h5>
+                    <div class="reaction-btns">
+                        <button class="btn btn-outline-success">👍 Like</button>
+                        <button class="btn btn-outline-danger">👎 Dislike</button>
                     </div>
                 </div>
-            `;
-            postSection.prepend(post);
-            document.getElementById('broadcast-text').value = '';
-        }
 
-        // Toggle Like
-        function toggleLike(element) {
-            const likeCount = element.querySelector('.like-count');
-            let count = parseInt(likeCount.textContent);
-            if (element.classList.contains('liked')) {
-                count--;
-                element.classList.remove('liked');
-            } else {
-                count++;
-                element.classList.add('liked');
-            }
-            likeCount.textContent = count;
-        }
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h5>Comments</h5>
+                    <div id="comments-1">
+<div class="comment-box">
+                            <strong>user1:</strong> This is a great post!
+                        </div>
+                        <div class="comment-box">
+                            <strong>user2:</strong> I totally agree with this.
+                        </div>
+                    </div>
+                    <div class="comment-box">
+                        <input type="text" class="form-control" placeholder="Add a comment..." id="comment-1">
+                        <button class="btn btn-primary mt-2" onclick="addComment(1)">Comment</button>
+                    </div>
+                </div>
+            </div>
 
-        // Toggle Comments Section
-        function toggleComments(element) {
-            const commentsSection = element.parentElement.nextElementSibling;
-            commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
-        }
+            <!-- More posts will be added dynamically here -->
+        </div>
+    </div>
+</div>
 
-        // Add a Comment
-        function addComment(button) {
-            const input = button.previousElementSibling;
-            const commentText = input.value.trim();
-            if (!commentText || !loggedInUser) return;
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-            const commentsBox = button.closest('.comments');
-            const comment = document.createElement('div');
-            comment.className = 'comment';
-            comment.textContent = `${loggedInUser.username}: ${commentText}`;
-            commentsBox.appendChild(comment);
+<script>
+// Simulate login status (for demo purposes)
+let loggedIn = false;
+let isAdmin = true;  // Set to true for admin view, false for normal user
 
-            input.value = '';
-        }
-    </script>
+// Show login section or wall section based on login status
+if (loggedIn) {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('wall-section').style.display = 'block';
+// Show admin post creation section if user is admin
+    if (isAdmin) {
+        document.getElementById('admin-post-section').style.display = 'block';
+    }
+} else {
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('wall-section').style.display = 'none';
+}
+
+// Handle form submission for creating posts
+document.getElementById('create-post-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const postTitle = document.getElementById('post-title').value;
+    const postContent = document.getElementById('post-content').value;
+
+    // Dynamically create new post on the wall
+    const postContainer = document.createElement('div');
+    postContainer.classList.add('post');
+    postContainer.innerHTML = `
+        <div class="post-header">postTitle</div>
+        <div class="post-content">{postContent}</div>
+        <div class="reactions-section">
+            <h5>Reactions</h5>
+            <div class="reaction-btns">
+                <button class="btn btn-outline-success">👍 Like</button>
+                <button class="btn btn-outline-danger">👎 Dislike</button>
+            </div>
+        </div>
+        <div class="comments-section">
+            <h5>Comments</h5>
+            <div id="comments-${Date.now()}"></div><div class="comment-box">
+                <input type="text" class="form-control" placeholder="Add a comment..." id="comment-{Date.now()}">
+                <button class="btn btn-primary mt-2" onclick="addComment(Date.now())">Comment</button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('posts').appendChild(postContainer);
+    document.getElementById('post-title').value = ”;
+    document.getElementById('post-content').value = ”;
+);
+
+// Handle adding comments to a post
+function addComment(postId) 
+    const commentInput = document.getElementById(`comment-{postId}`);
+    const commentText = commentInput.value.trim();
+    if (commentText) {
+        const commentBox = document.createElement('div');
+        commentBox.classList.add('comment-box');
+        commentBox.innerHTML = `<strong>user:</strong> commentText`;
+        document.getElementById(`comments-{postId}`).appendChild(commentBox);
+        commentInput.value = ''; // Clear input field
+    }
+}
+
+</script>
 </body>
 </html>
+
+
