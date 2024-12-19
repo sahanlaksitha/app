@@ -46,11 +46,9 @@
     </div>
 
     <script>
-        // Telegram Bot API Configuration
         const TELEGRAM_BOT_TOKEN = "8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU"; // Replace with your bot token
         const CHANNEL_USERNAME = "tipstream"; // Replace with your channel username
 
-        // Function to fetch messages from the Telegram channel
         async function fetchChannelMessages() {
             try {
                 const response = await fetch(
@@ -60,7 +58,6 @@
 
                 if (!data.ok) throw new Error(data.description || "Failed to fetch messages");
 
-                // Filter messages for the specified channel
                 const messages = data.result
                     .filter(update => update.channel_post && update.channel_post.chat.username === CHANNEL_USERNAME)
                     .map(update => ({
@@ -76,7 +73,6 @@
             }
         }
 
-        // Function to display messages on the webpage
         function displayMessages(messages) {
             const container = document.getElementById("messages-container");
             container.innerHTML = ""; // Clear loading text
@@ -98,9 +94,7 @@
             });
         }
 
-        // Load messages when the page loads
         fetchChannelMessages();
     </script>
 </body>
 </html>
- 
