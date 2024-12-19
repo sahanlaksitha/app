@@ -1,18 +1,135 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Channel Feed</title>
+    <title>Tipsream Channel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .post:last-child {
+            border-bottom: none;
+        }
+        .post-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .post-content {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .reactions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .reaction-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .reaction-btn:hover {
+            background-color: #d6d6d6;
+        }
+        .comments {
+            margin-top: 10px;
+        }
+        .comments input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .comments button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .comments button:hover {
+            background-color: #0056b3;
+        }
+        .comment-list {
+            margin-top: 10px;
+        }
+        .comment {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Telegram Wall</h1>
-    
-    <!-- Telegram Channel Widget -->
-    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Tipstream/100" data-width="100%" data-dark="1"></script>
+    <div class="container">
+        <h1>Tipsream Channel Posts</h1>
 
-    <p>Click the link above to view posts from our Telegram channel.</p>
+        <!-- Sample Post -->
+        <div class="post" id="post-1">
+            <div class="post-title">Post Title Here</div>
+            <div class="post-content">This is a sample post content pulled from the Telegram channel "t.me/tipsream".</div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">👍 5</button>
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ 3</button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 1</button>
+            </div>
+            <div class="comments">
+                <input type="text" placeholder="Write a comment..." />
+                <button onclick="addComment(this)">Add Comment</button>
+                <div class="comment-list">
+                    <!-- Existing Comments -->
+                    <div class="comment">Nice post!</div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Additional posts will be dynamically added here -->
+    </div>
+
+    <script>
+        // Add reaction to a post
+        function addReaction(button) {
+            let count = parseInt(button.textContent.match(/\d+/)[0]); // Get current count
+            button.textContent = button.textContent.replace(/\d+/, count + 1); // Increment count
+        }
+
+        // Add comment to a post
+        function addComment(button) {
+            const input = button.previousElementSibling; // Get the input field
+            const commentText = input.value.trim(); // Get input text
+            if (commentText) {
+                const commentList = button.nextElementSibling; // Get the comment list container
+                const newComment = document.createElement('div'); // Create new comment element
+                newComment.className = 'comment'; // Add comment class
+                newComment.textContent = commentText; // Set the comment text
+                commentList.appendChild(newComment); // Add comment to list
+                input.value = ''; // Clear input field
+            }
+        }
+    </script>
 </body>
 </html>
