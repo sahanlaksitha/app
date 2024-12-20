@@ -30,7 +30,7 @@ function showPage(pageId, clickedElement) {
 
  // Admin Chat ID and Bot Token
     const ADMIN_CHAT_ID = "1258152672"; // Replace with your admin or group chat ID
-    const BOT_TOKEN = "YOUR_BOT_TOKEN"; // Replace with your actual bot token
+    const BOT_TOKEN = "8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU"; // Replace with your actual bot token
 
     // Event Listener for Feedback Button
     document.getElementById("send-feedback-btn").addEventListener("click", sendFeedback);
