@@ -79,7 +79,7 @@ h1 {
   border: 2px solid white; /* White border with 2px thickness */
   border-radius: 10px; /* Rounded corners */
   padding: 20px; /* Inner spacing */
-  margin: 10px; /* Outer spacing */
+  /* Outer spacing */
 }
 
 .user-details img {
