@@ -66,20 +66,14 @@ h1 {
   display: flex;
   flex-direction: row; /* Keep elements in a row */
   
-  /* Align text content to the left */
-  padding: 10px; /* Add spacing around the details */
- 
-  
-  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   color: white;
-  width: 90%;
+  width: 93%;
   max-width: 400px;
   
   border: 2px solid white; /* White border with 2px thickness */
   border-radius: 10px; /* Rounded corners */
   padding: 20px; /* Inner spacing */
-  /* Outer spacing */
+  
 }
 
 .user-details img {
