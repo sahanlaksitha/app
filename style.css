@@ -196,7 +196,10 @@ button:hover {
       background-color: #0077b5;
     }
 
-    
+    .mes {
+      color:black;
+    }
+
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed;
