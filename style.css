@@ -65,8 +65,8 @@ h1 {
 .user-details {
   display: flex;
   flex-direction: row; /* Keep elements in a row */
-  margin: 0 auto;
-  text-align: center; /* Align text content to the left */
+  
+  /* Align text content to the left */
   padding: 10px; /* Add spacing around the details */
  
   
