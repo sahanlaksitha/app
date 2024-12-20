@@ -65,11 +65,11 @@ h1 {
 .user-details {
   display: flex;
   flex-direction: row; /* Keep elements in a row */
-  
+  margin: 0 auto;
   color: white;
   width: 93%;
   max-width: 400px;
-  
+  text-align: center;
   border: 2px solid white; /* White border with 2px thickness */
   border-radius: 10px; /* Rounded corners */
   padding: 20px; /* Inner spacing */
