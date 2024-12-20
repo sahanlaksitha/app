@@ -64,7 +64,7 @@ h1 {
 /* User Details */
 .user-details {
   display: flex;
-  flex-direction: row; /* Keep elements in a row */
+   /* Keep elements in a row */
   margin: 0 auto;
   color: white;
   width: 93%;
