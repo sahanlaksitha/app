@@ -84,11 +84,7 @@ function showPage(pageId, clickedElement) {
       document.getElementById("feedback-modal").style.display = "none";
     }
 
-// Disable right-click
-    document.addEventListener("contextmenu", function (e) {
-      e.preventDefault(); // Prevent the default context menu
-      alert("Right-click is disabled on this page.");
-    });
+
 
     // Disable touch-and-hold for mobile devices
     document.addEventListener("touchstart", function (e) {
