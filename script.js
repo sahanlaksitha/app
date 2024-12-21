@@ -84,7 +84,24 @@ function showPage(pageId, clickedElement) {
       document.getElementById("feedback-modal").style.display = "none";
     }
 
+// Disable right-click
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault(); // Prevent the default context menu
+      alert("Right-click is disabled on this page.");
+    });
 
+    // Disable touch-and-hold for mobile devices
+    document.addEventListener("touchstart", function (e) {
+      if (e.touches.length > 1) {
+        e.preventDefault(); // Prevent default for multi-touch gestures
+      }
+    }, { passive: false });
+
+    document.addEventListener("mousedown", function (e) {
+      if (e.button === 2) { // Check for right mouse button
+        e.preventDefault();
+      }
+    });
 
 
 // Expand WebApp
