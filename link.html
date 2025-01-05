@@ -42,6 +42,10 @@
       font-weight: bold;
       color: green;
     }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -50,13 +54,31 @@
     <input type="text" id="userName" placeholder="Enter User Name" />
     <button onclick="createInviteLink()">Generate Link</button>
     <div class="result" id="result"></div>
+    <div class="error" id="error"></div>
   </div>
 
   <script>
+    // Dictionary to track user invite links
+    const inviteLinks = {};
+
     async function createInviteLink() {
       const userName = document.getElementById('userName').value.trim();
+      const errorDiv = document.getElementById('error');
+      const resultDiv = document.getElementById('result');
+      errorDiv.textContent = '';
+      resultDiv.textContent = '';
+
       if (!userName) {
-        alert('Please enter a user name.');
+        errorDiv.textContent = 'Please enter a user name.';
+        return;
+      }
+
+      // Check if the user already has an invite link
+      if (inviteLinks[userName]) {
+        resultDiv.innerHTML = `
+          User "${userName}" already has an invite link: 
+          <a href="${inviteLinks[userName].link}" target="_blank">${inviteLinks[userName].link}</a><br>
+          Number of users joined via this link: ${inviteLinks[userName].joins || 0}`;
         return;
       }
 
@@ -83,14 +105,51 @@
         const data = await response.json();
 
         if (data.ok) {
-          document.getElementById('result').innerHTML = 
-            `<a href="${data.result.invite_link}" target="_blank">${data.result.invite_link}</a>`;
+          inviteLinks[userName] = {
+            link: data.result.invite_link,
+            joins: 0 // Initialize joins count
+          };
+
+          resultDiv.innerHTML = `
+            Invite link created for "${userName}": 
+            <a href="${data.result.invite_link}" target="_blank">${data.result.invite_link}</a><br>
+            Number of users joined via this link: 0`;
         } else {
-          document.getElementById('result').textContent = 'Error creating invite link.';
+          errorDiv.textContent = 'Error creating invite link.';
         }
       } catch (error) {
-        document.getElementById('result').textContent = 'Error connecting to Telegram API.';
+        errorDiv.textContent = 'Error connecting to Telegram API.';
         console.error(error);
+      }
+    }
+
+    // Optional: Update join count using Telegram API (if supported)
+    async function updateJoinCount(userName) {
+      if (!inviteLinks[userName]) return;
+
+      const BOT_TOKEN = '8080972949:AAHeqF2352do546naypN2FS-p_BNagw2keU';
+      const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/getChatInviteLinkCounts`;
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ chat_id: '@tipstream' }) // Replace with your chat ID
+        });
+
+        const data = await response.json();
+
+        if (data.ok && Array.isArray(data.result)) {
+          const userLink = inviteLinks[userName].link;
+          const linkData = data.result.find(item => item.invite_link === userLink);
+          if (linkData) {
+            inviteLinks[userName].joins = linkData.member_count || 0;
+          }
+        }
+      } catch (error) {
+        console.error('Error updating join count:', error);
       }
     }
   </script>
