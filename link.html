@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Invite Link Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Create Telegram Invite Link</h2>
+    <input type="text" id="userName" placeholder="Enter User Name" />
+    <button onclick="createInviteLink()">Generate Link</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function createInviteLink() {
+      const userName = document.getElementById('userName').value.trim();
+      if (!userName) {
+        alert('Please enter a user name.');
+        return;
+      }
+
+      const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
+      const CHAT_ID = '@tipstream'; // Replace with your channel username or ID
+      const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/createChatInviteLink`;
+
+      const payload = {
+        chat_id: CHAT_ID,
+        name: `${userName}'s Invite Link`,
+        expire_date: 0,
+        member_limit: 1
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+          document.getElementById('result').innerHTML = 
+            `<a href="${data.result.invite_link}" target="_blank">${data.result.invite_link}</a>`;
+        } else {
+          document.getElementById('result').textContent = 'Error creating invite link.';
+        }
+      } catch (error) {
+        document.getElementById('result').textContent = 'Error connecting to Telegram API.';
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
